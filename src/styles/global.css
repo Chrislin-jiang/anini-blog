@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+/* ========== Toss-inspired Design Tokens ========== */
+@theme {
+  --color-primary-start: #4A6CF7;
+  --color-primary-end: #7B61FF;
+  --color-accent-mint: #A8E6CF;
+  --color-accent-pink: #FFB3BA;
+  --color-accent-yellow: #FFEAA7;
+  --color-accent-sky: #74B9FF;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+}
+
+/* ========== Base Styles ========== */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--color-text-primary);
+  background: linear-gradient(180deg, #E8F0FE 0%, #F0F4FF 30%, #F8FAFF 60%, #FFFFFF 100%);
+  overflow-x: hidden;
+}
+
+/* ========== Glass Card ========== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(74, 108, 247, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(74, 108, 247, 0.16);
+}
+
+/* ========== Gradient Button ========== */
+.gradient-btn {
+  background: linear-gradient(135deg, #4A6CF7, #7B61FF);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 36px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(74, 108, 247, 0.3);
+}
+
+.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74, 108, 247, 0.45);
+}
+
+.gradient-btn-outline {
+  background: transparent;
+  color: #4A6CF7;
+  border: 2px solid #4A6CF7;
+  border-radius: 9999px;
+  padding: 12px 34px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gradient-btn-outline:hover {
+  background: linear-gradient(135deg, #4A6CF7, #7B61FF);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+/* ========== Animations ========== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(74, 108, 247, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(74, 108, 247, 0.4); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes bounce-in {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(14deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(14deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-wave { animation: wave 2.5s ease-in-out infinite; }
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(74, 108, 247, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 108, 247, 0.4);
+}
+
+/* ========== Selection ========== */
+::selection {
+  background: rgba(74, 108, 247, 0.2);
+  color: #1A1A2E;
+}
+
+/* ========== Section Spacing ========== */
+.section-padding {
+  padding: 100px 24px;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 120px 48px;
+  }
+}
+
+/* ========== Chat Bubble ========== */
+.chat-bubble {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px 20px 20px 4px;
+  padding: 16px 22px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  max-width: 320px;
+  position: relative;
+}
+
+.chat-bubble-right {
+  background: linear-gradient(135deg, #4A6CF7, #7B61FF);
+  color: white;
+  border-radius: 20px 20px 4px 20px;
+}
+
+/* ========== Progress Ring ========== */
+.progress-ring-circle {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar';
+import Hero from '../components/Hero';
+import AboutBubbles from '../components/AboutBubbles';
+import TechStack from '../components/TechStack';
+import ProjectCards from '../components/ProjectCards';
+import BlogList from '../components/BlogList';
+import Contact from '../components/Contact';
+import Footer from '../components/Footer';
+import ScrollProgress from '../components/ScrollProgress';
+---
+
+<BaseLayout>
+  <ScrollProgress client:load />
+  <Navbar client:load />
+  <main>
+    <Hero client:load />
+    <AboutBubbles client:visible />
+    <TechStack client:visible />
+    <ProjectCards client:visible />
+    <BlogList client:visible />
+    <Contact client:visible />
+  </main>
+  <Footer client:load />
+</BaseLayout>
