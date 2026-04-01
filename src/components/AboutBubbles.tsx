@@ -72,8 +72,8 @@ export default function AboutBubbles() {
           transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
           className="flex justify-center mb-10"
         >
-          <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-[#74B9FF] to-[#A8E6CF] flex items-center justify-center text-5xl shadow-lg animate-float-slow">
-            🧑‍💻
+          <div className="w-24 h-24 rounded-3xl overflow-hidden shadow-lg animate-float-slow">
+            <img src="/images/avatar.png" alt="Lin's avatar" className="w-full h-full object-cover" />
           </div>
         </motion.div>
 

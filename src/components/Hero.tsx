@@ -25,8 +25,8 @@ export default function Hero() {
           transition={{ type: 'spring', stiffness: 200, damping: 20, delay: 0.2 }}
           className="relative mb-10"
         >
-          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-[#4A6CF7] to-[#7B61FF] flex items-center justify-center animate-float shadow-[0_0_60px_rgba(74,108,247,0.3)]">
-            <span className="text-7xl md:text-8xl">👨‍💻</span>
+          <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden animate-float shadow-[0_0_60px_rgba(74,108,247,0.3)]">
+            <img src="/images/avatar.png" alt="Lin's avatar" className="w-full h-full object-cover" />
           </div>
           {/* Orbit ring */}
           <div className="absolute inset-[-12px] rounded-full border-2 border-dashed border-[#4A6CF7]/20 animate-spin-slow" />
