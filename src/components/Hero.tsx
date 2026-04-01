@@ -26,7 +26,7 @@ export default function Hero() {
           className="relative mb-10"
         >
           <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden animate-float shadow-[0_0_60px_rgba(74,108,247,0.3)]">
-            <img src="/images/avatar.png" alt="Lin's avatar" className="w-full h-full object-cover" />
+            <img src="/images/avatar.png" alt="Anini's avatar" className="w-full h-full object-cover" />
           </div>
           {/* Orbit ring */}
           <div className="absolute inset-[-12px] rounded-full border-2 border-dashed border-[#4A6CF7]/20 animate-spin-slow" />
@@ -59,7 +59,7 @@ export default function Hero() {
           transition={{ delay: 0.7 }}
           className="text-5xl md:text-7xl font-extrabold mb-5 bg-gradient-to-r from-[#1A1A2E] via-[#4A6CF7] to-[#7B61FF] bg-clip-text text-transparent"
         >
-          我是 Lin
+          我是 Anini
         </motion.h1>
 
         {/* Subtitle */}
@@ -69,9 +69,9 @@ export default function Hero() {
           transition={{ delay: 0.9 }}
           className="text-lg md:text-xl text-[#6B7280] mb-10 leading-relaxed max-w-lg"
         >
-          一个热爱创造的<span className="text-[#4A6CF7] font-semibold">前端工程师</span>
+          滴滴<span className="text-[#4A6CF7] font-semibold">前端工程师</span> · 掘金 2024 人气作者
           <br />
-          用代码构建美好的用户体验
+          路阻且长，行则将至
         </motion.p>
 
         {/* CTA Buttons */}

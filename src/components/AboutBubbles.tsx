@@ -36,12 +36,12 @@ export default function AboutBubbles() {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
 
   const bubbles: BubbleProps[] = [
-    { text: '做前端开发 5 年了，每天都在学习新东西', side: 'left', delay: 0.1, emoji: '😊' },
-    { text: '擅长 React / Vue / TypeScript 全家桶', side: 'right', delay: 0.3, emoji: '🚀' },
-    { text: '对 CSS 动画和交互细节有执念', side: 'left', delay: 0.5, emoji: '✨' },
-    { text: '喜欢把复杂的东西做得简单优雅', side: 'right', delay: 0.7, emoji: '🎯' },
-    { text: '业余时间写技术博客，分享学习心得', side: 'left', delay: 0.9, emoji: '📝' },
-    { text: '相信好的代码就像好的设计，值得被感受', side: 'right', delay: 1.1, emoji: '💡' },
+    { text: '跨专业自学前端，目前在滴滴做前端开发', side: 'left', delay: 0.1, emoji: '😊' },
+    { text: '主要技术栈 React + TypeScript，也熟悉 Vue / Webpack', side: 'right', delay: 0.3, emoji: '🚀' },
+    { text: '掘金写了 242 篇文章，15 万+ 阅读，2024 年度人气作者', side: 'left', delay: 0.5, emoji: '✨' },
+    { text: '做过可视化搭建平台、富文本编辑器、组件库等项目', side: 'right', delay: 0.7, emoji: '🎯' },
+    { text: '喜欢建立知识体系，用输出倒逼输入', side: 'left', delay: 0.9, emoji: '📝' },
+    { text: '路阻且长，行则将至。坚定方向，坚持学习', side: 'right', delay: 1.1, emoji: '💡' },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function AboutBubbles() {
           className="flex justify-center mb-10"
         >
           <div className="w-24 h-24 rounded-3xl overflow-hidden shadow-lg animate-float-slow">
-            <img src="/images/avatar.png" alt="Lin's avatar" className="w-full h-full object-cover" />
+            <img src="/images/avatar.png" alt="Anini's avatar" className="w-full h-full object-cover" />
           </div>
         </motion.div>
 

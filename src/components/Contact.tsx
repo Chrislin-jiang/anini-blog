@@ -17,10 +17,10 @@ const resultMap: Record<Choice, Choice> = {
 };
 
 const contactLinks = [
-  { label: 'GitHub', icon: '🐙', href: 'https://github.com', color: 'from-gray-700 to-gray-900' },
-  { label: '邮箱', icon: '📧', href: 'mailto:hello@lin.dev', color: 'from-[#4A6CF7] to-[#7B61FF]' },
-  { label: '微信', icon: '💬', href: '#', color: 'from-emerald-500 to-green-600' },
-  { label: '掘金', icon: '📘', href: 'https://juejin.cn', color: 'from-blue-500 to-blue-700' },
+  { label: 'GitHub', icon: '🐙', href: 'https://github.com/Chrislin-jiang', color: 'from-gray-700 to-gray-900' },
+  { label: '掘金', icon: '📘', href: 'https://juejin.cn/user/1908407919207006', color: 'from-blue-500 to-blue-700' },
+  { label: '博客园', icon: '📝', href: 'https://www.cnblogs.com/chrislinlin/', color: 'from-[#4A6CF7] to-[#7B61FF]' },
+  { label: 'Gitee', icon: '🔶', href: 'https://gitee.com/chrislinlin', color: 'from-emerald-500 to-green-600' },
 ];
 
 export default function Contact() {
@@ -180,7 +180,7 @@ export default function Contact() {
                   🎊 恭喜解锁！这是我的座右铭：
                 </p>
                 <p className="text-lg font-bold text-[#1A1A2E] mt-1">
-                  "Stay curious, keep building."
+                  "路阻且长，行则将至。"
                 </p>
               </motion.div>
             )}
