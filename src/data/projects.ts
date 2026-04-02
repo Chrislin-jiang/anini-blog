@@ -13,7 +13,7 @@ export const projects: Project[] = [
     description: `我做了一个小工具叫「出戏」🎭，输入你的念头，AI 帮你识别是哪个角色在说话，然后你可以选择：看见它🫧、给它贴标签🏷️、改写台词✏️、用滑稽腔念出来🎵、缩小🔍、吹走💨、融化🫠……，8种方式帮你「出戏」，而不是和念头硬刚。`,
     tags: ['React', '认知解离', '自信的陷阱'],
     color: 'from-blue-400 to-purple-500',
-    link: 'https://thought-unhook-1j8o.vercel.app/',
+    link: 'https://thought-unhook.vercel.app/',
     image: '/images/offstage.png'
   },
   {
