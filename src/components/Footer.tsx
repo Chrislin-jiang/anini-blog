@@ -4,8 +4,7 @@ export default function Footer() {
       <p className="text-sm text-[#9CA3AF]">
         © {new Date().getFullYear()} Anini · Built with{' '}
         <span className="text-[#4A6CF7]">Astro</span> +{' '}
-        <span className="text-[#7B61FF]">React</span> · Inspired by{' '}
-        <span className="font-medium text-[#6B7280]">Toss</span>
+        <span className="text-[#7B61FF]">React</span>
       </p>
     </footer>
   );

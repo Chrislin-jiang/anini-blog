@@ -10,7 +10,7 @@ export interface Post {
 export const posts: Post[] = [
   {
     title: '【前端面经】美图 Meitu 面试',
-    summary: '16k 阅读、127 赞的高热度面经，包含完整面试流程和技术考察点。',
+    summary: '16k 阅读、419 点赞+收藏，高热度面经，包含完整面试流程和技术考察点。',
     date: '2025-06-15',
     category: '面试',
     categoryColor: 'bg-pink-100 text-pink-700',
@@ -18,7 +18,7 @@ export const posts: Post[] = [
   },
   {
     title: '【前端面经】滴滴 面试',
-    summary: '10k 阅读、111 赞，亲历滴滴面试的完整复盘。',
+    summary: '10k 阅读、376 点赞+收藏，亲历滴滴面试的完整复盘。',
     date: '2025-05-20',
     category: '面试',
     categoryColor: 'bg-pink-100 text-pink-700',
@@ -26,7 +26,7 @@ export const posts: Post[] = [
   },
   {
     title: 'CSS 函数 calc() 会引起重排重绘吗',
-    summary: '深入浏览器渲染原理，探讨 CSS 动态计算对性能的影响，4.9k 阅读、45 赞。',
+    summary: '深入浏览器渲染原理，探讨 CSS 动态计算对性能的影响，4.9k 阅读、70 点赞+收藏。',
     date: '2025-04-10',
     category: 'CSS',
     categoryColor: 'bg-cyan-100 text-cyan-700',

@@ -69,7 +69,7 @@ export default function Hero() {
           transition={{ delay: 0.9 }}
           className="text-lg md:text-xl text-[#6B7280] mb-10 leading-relaxed max-w-lg"
         >
-          滴滴<span className="text-[#4A6CF7] font-semibold">前端工程师</span> · 掘金 2024 人气作者
+          <span className="text-[#4A6CF7] font-semibold">前端工程师</span> · 掘金 2024 人气作者
           <br />
           路阻且长，行则将至
         </motion.p>
