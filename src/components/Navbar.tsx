@@ -29,7 +29,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="text-xl font-bold bg-gradient-to-r from-[#4A6CF7] to-[#7B61FF] bg-clip-text text-transparent">
-          Anini.dev
+          Anini
         </a>
 
         {/* Desktop links */}

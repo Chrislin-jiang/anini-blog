@@ -38,7 +38,7 @@ export default function AboutBubbles() {
   const bubbles: BubbleProps[] = [
     { text: '跨专业自学前端，目前在滴滴做前端开发', side: 'left', delay: 0.1, emoji: '😊' },
     { text: '主要技术栈 React + TypeScript，也熟悉 Vue / Webpack', side: 'right', delay: 0.3, emoji: '🚀' },
-    { text: '掘金写了 242 篇文章，15 万+ 阅读，2024 年度人气作者', side: 'left', delay: 0.5, emoji: '✨' },
+    { text: '掘金写了 52 篇文章，15 万+ 阅读，2024 年度人气作者', side: 'left', delay: 0.5, emoji: '✨' },
     { text: '做过可视化搭建平台、富文本编辑器、组件库等项目', side: 'right', delay: 0.7, emoji: '🎯' },
     { text: '喜欢建立知识体系，用输出倒逼输入', side: 'left', delay: 0.9, emoji: '📝' },
     { text: '最近在AI探索中...', side: 'right', delay: 1.1, emoji: '🤖' },
