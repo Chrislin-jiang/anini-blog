@@ -9,31 +9,35 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: '可视化搭建平台',
-    description: '低代码可视化搭建平台，包含魔方组件设计与实现、店铺装修等功能，掘金文章 5.1k 阅读。',
-    tags: ['React', '低代码', '可视化'],
+    title: '出戏-OffStage',
+    description: `我做了一个小工具叫「出戏」🎭，输入你的念头，AI 帮你识别是哪个角色在说话，然后你可以选择：看见它🫧、给它贴标签🏷️、改写台词✏️、用滑稽腔念出来🎵、缩小🔍、吹走💨、融化🫠……，8种方式帮你「出戏」，而不是和念头硬刚。`,
+    tags: ['React', '认知解离', '自信的陷阱'],
     color: 'from-blue-400 to-purple-500',
-    link: 'https://juejin.cn/post/7442908576535937087',
+    link: 'https://thought-unhook-1j8o.vercel.app/',
+    image: '../../public/images/offstage.png'
   },
   {
-    title: 'React 富文本编辑器',
-    description: '基于 Quill 的富文本二次开发，实现自定义 Blot、智能目录组件等功能。',
-    tags: ['React', 'Quill', '富文本'],
+    title: '价值选择器-ValueSelector',
+    description: '每天选择你想成为的人，而不是被情绪带着走',
+    tags: ['React', 'Next.js', '价值选择'],
     color: 'from-emerald-400 to-cyan-500',
-    link: 'https://juejin.cn/post/7520546357464367154',
+    link: 'https://value-selector-delta.vercel.app/',
+    image: '../../public/images/value-selector.png'
   },
   {
-    title: 'Web 端截屏/录屏',
-    description: 'Web 端截屏和录屏的技术方案调研与实现，截屏方案文章 1k+ 阅读。',
-    tags: ['JavaScript', 'WebRTC', 'Canvas'],
+    title: '古早个人网站',
+    description: '一个简单的古早个人网站，使用 VuePress 构建。',
+    tags: ['VuePress', '个人网站', '静态站点生成'],
     color: 'from-orange-400 to-pink-500',
-    link: 'https://juejin.cn/post/7507204325577277455',
+    link: 'https://chrislin-jiang.github.io/code-girl/',
+    image: '../../public/images/anini3.png'
   },
   {
     title: '技术博客',
     description: '掘金 242 篇文章 + VuePress 文档站 150+ 篇，总阅读 15w+，2024 年度人气作者。',
-    tags: ['掘金', 'VuePress', '写作'],
+    tags: ['掘金', '博客', '写作'],
     color: 'from-violet-400 to-indigo-500',
     link: 'https://juejin.cn/user/1908407919207006',
+    image: '../../public/images/juejin3.jpg'
   },
 ];

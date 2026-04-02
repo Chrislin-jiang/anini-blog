@@ -33,22 +33,39 @@ export default function ProjectCards() {
             <motion.a
               key={project.title}
               href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.15, duration: 0.6 }}
               className="glass-card overflow-hidden group block"
             >
-              {/* Gradient header bar */}
+              {/* Gradient header bar with project image */}
               <div className={`h-36 bg-gradient-to-br ${project.color} flex items-center justify-center relative overflow-hidden`}>
-                {/* Abstract pattern */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="absolute top-4 right-4 w-20 h-20 rounded-full border-4 border-white/30" />
-                  <div className="absolute bottom-4 left-4 w-12 h-12 rounded-2xl border-4 border-white/20 rotate-12" />
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-4 border-white/10" />
-                </div>
-                <span className="text-white/90 text-5xl font-bold relative z-10 group-hover:scale-110 transition-transform duration-300">
-                  {project.title.charAt(0)}
-                </span>
+                {/* Project image as background */}
+                {project.image && (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
+                  />
+                )}
+                {/* Gradient overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-black/40" />
+                {/* Abstract pattern - only show when no image */}
+                {!project.image && (
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-4 right-4 w-20 h-20 rounded-full border-4 border-white/30" />
+                    <div className="absolute bottom-4 left-4 w-12 h-12 rounded-2xl border-4 border-white/20 rotate-12" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-4 border-white/10" />
+                  </div>
+                )}
+                {/* First letter fallback when no image */}
+                {!project.image && (
+                  <span className="text-white/90 text-5xl font-bold relative z-10 group-hover:scale-110 transition-transform duration-300">
+                    {project.title.charAt(0)}
+                  </span>
+                )}
               </div>
 
               {/* Content */}

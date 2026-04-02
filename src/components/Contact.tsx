@@ -18,6 +18,7 @@ const resultMap: Record<Choice, Choice> = {
 
 const contactLinks = [
   { label: 'GitHub', icon: '🐙', href: 'https://github.com/Chrislin-jiang', color: 'from-gray-700 to-gray-900' },
+  { label: '古早站点', icon: '🐟', href: 'https://chrislin-jiang.github.io/code-girl/', color: 'from-blue-500 to-blue-700' },
   { label: '掘金', icon: '📘', href: 'https://juejin.cn/user/1908407919207006', color: 'from-blue-500 to-blue-700' },
   { label: '博客园', icon: '📝', href: 'https://www.cnblogs.com/chrislinlin/', color: 'from-[#4A6CF7] to-[#7B61FF]' },
   { label: 'Gitee', icon: '🔶', href: 'https://gitee.com/chrislinlin', color: 'from-emerald-500 to-green-600' },

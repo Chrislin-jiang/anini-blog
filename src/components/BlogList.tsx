@@ -30,6 +30,8 @@ export default function BlogList() {
             <motion.a
               key={post.title}
               href={post.link}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ delay: i * 0.12, duration: 0.5 }}

@@ -14,7 +14,7 @@ export const posts: Post[] = [
     date: '2025-06-15',
     category: '面试',
     categoryColor: 'bg-pink-100 text-pink-700',
-    link: 'https://juejin.cn/post/7381000000000000000',
+    link: 'https://juejin.cn/post/7369761632275955722',
   },
   {
     title: '【前端面经】滴滴 面试',
@@ -22,7 +22,7 @@ export const posts: Post[] = [
     date: '2025-05-20',
     category: '面试',
     categoryColor: 'bg-pink-100 text-pink-700',
-    link: 'https://juejin.cn/post/7380000000000000000',
+    link: 'https://juejin.cn/post/7371445601554530355',
   },
   {
     title: 'CSS 函数 calc() 会引起重排重绘吗',
@@ -38,7 +38,7 @@ export const posts: Post[] = [
     date: '2024-12-08',
     category: 'React',
     categoryColor: 'bg-blue-100 text-blue-700',
-    link: 'https://juejin.cn/post/7442908576535937087',
+    link: 'https://juejin.cn/post/7346959888009248802',
   },
   {
     title: 'React 富文本二次开发：自定义 Blot',
