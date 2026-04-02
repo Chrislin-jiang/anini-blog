@@ -14,7 +14,7 @@ export const projects: Project[] = [
     tags: ['React', '认知解离', '自信的陷阱'],
     color: 'from-blue-400 to-purple-500',
     link: 'https://thought-unhook-1j8o.vercel.app/',
-    image: '../../public/images/offstage.png'
+    image: '/images/offstage.png'
   },
   {
     title: '价值选择器-ValueSelector',
@@ -22,7 +22,7 @@ export const projects: Project[] = [
     tags: ['React', 'Next.js', '价值选择'],
     color: 'from-emerald-400 to-cyan-500',
     link: 'https://value-selector-delta.vercel.app/',
-    image: '../../public/images/value-selector.png'
+    image: '/images/value-selector.png'
   },
   {
     title: '古早个人网站',
@@ -30,7 +30,7 @@ export const projects: Project[] = [
     tags: ['VuePress', '个人网站', '静态站点生成'],
     color: 'from-orange-400 to-pink-500',
     link: 'https://chrislin-jiang.github.io/code-girl/',
-    image: '../../public/images/anini3.png'
+    image: '/images/anini3.png'
   },
   {
     title: '技术博客',
@@ -38,6 +38,6 @@ export const projects: Project[] = [
     tags: ['掘金', '博客', '写作'],
     color: 'from-violet-400 to-indigo-500',
     link: 'https://juejin.cn/user/1908407919207006',
-    image: '../../public/images/juejin3.jpg'
+    image: '/images/juejin3.jpg'
   },
 ];
