@@ -11,7 +11,7 @@ export const projects: Project[] = [
   {
     title: '出戏-OffStage',
     description: `我做了一个小工具叫「出戏」🎭，输入你的念头，AI 帮你识别是哪个角色在说话，然后你可以选择：看见它🫧、给它贴标签🏷️、改写台词✏️、用滑稽腔念出来🎵、缩小🔍、吹走💨、融化🫠……，8种方式帮你「出戏」，而不是和念头硬刚。`,
-    tags: ['React', '认知解离', '自信的陷阱'],
+    tags: ['React', 'AI', '认知解离'],
     color: 'from-blue-400 to-purple-500',
     link: 'https://thought-unhook.vercel.app/',
     image: '/images/offstage.png'
@@ -19,7 +19,7 @@ export const projects: Project[] = [
   {
     title: '价值选择器-ValueSelector',
     description: '每天选择你想成为的人，而不是被情绪带着走',
-    tags: ['React', 'Next.js', '价值选择'],
+    tags: ['React', 'AI', '价值选择'],
     color: 'from-emerald-400 to-cyan-500',
     link: 'https://value-selector-delta.vercel.app/',
     image: '/images/value-selector.png'
