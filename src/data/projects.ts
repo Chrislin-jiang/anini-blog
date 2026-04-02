@@ -34,7 +34,7 @@ export const projects: Project[] = [
   },
   {
     title: '技术博客',
-    description: '掘金 52 篇文章 + VuePress 文档站 150+ 篇，总阅读 15w+，2024 年度人气作者。',
+    description: '掘金 52 篇文章，VuePress 文档站 150+ 篇，总阅读 15w+，2024 年度人气作者。',
     tags: ['掘金', '博客', '写作'],
     color: 'from-violet-400 to-indigo-500',
     link: 'https://juejin.cn/user/1908407919207006',
