@@ -1,201 +1,434 @@
-import { useRef, useState, useMemo, useEffect, type ReactNode } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { useRef, useState, useMemo, useEffect, useCallback } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
-import { Atom, FileCode, Code, Package, BarChart3, Bot } from 'lucide-react';
 import { isWebGLAvailable } from '../../utils/webgl';
 
-interface SkillNode {
+// Skill data - pure data, no React icons in 3D scene
+interface SkillData {
   name: string;
-  icon: ReactNode;
   color: string;
-  position: [number, number, number];
+  level: string;
+  icon: string; // emoji or text symbol
+  phi: number;   // spherical coordinate
+  theta: number; // spherical coordinate
 }
 
-const SKILLS: SkillNode[] = [
-  { name: 'React', icon: <Atom size={16} />, color: '#7EC8E3', position: [1.2, 0.8, 0.5] },
-  { name: 'TypeScript', icon: <FileCode size={16} />, color: '#A8E6CF', position: [-0.8, 1.0, 0.8] },
-  { name: 'Vue', icon: <Code size={16} />, color: '#8BC48A', position: [0.5, -1.0, 0.9] },
-  { name: 'Webpack', icon: <Package size={16} />, color: '#C9B1FF', position: [-1.0, -0.5, 0.7] },
-  { name: '可视化', icon: <BarChart3 size={16} />, color: '#FFB7C5', position: [0.8, 0.3, -1.0] },
-  { name: 'AI', icon: <Bot size={16} />, color: '#FFD93D', position: [-0.5, 0.6, -1.1] },
+const SKILLS: SkillData[] = [
+  { name: 'React', color: '#61DAFB', level: '精通', icon: '⚛', phi: 0.8, theta: 0.5 },
+  { name: 'TypeScript', color: '#3178C6', level: '精通', icon: 'TS', phi: 2.2, theta: 1.0 },
+  { name: 'Vue', color: '#42B883', level: '熟练', icon: '◆', phi: 1.5, theta: 2.1 },
+  { name: 'Webpack', color: '#8DD6F9', level: '熟练', icon: '⬡', phi: 0.5, theta: 3.5 },
+  { name: '可视化', color: '#FF6B9D', level: '擅长', icon: '📊', phi: 2.5, theta: 4.2 },
+  { name: 'AI', color: '#F5C542', level: '探索中', icon: '🤖', phi: 1.2, theta: 5.5 },
 ];
 
-function GlassSphere() {
+const SPHERE_RADIUS = 2.2;
+
+// Pause rendering when page is not visible
+function VisibilityController() {
+  const { gl } = useThree();
+
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.hidden) {
+        gl.setAnimationLoop(null);
+      } else {
+        gl.setAnimationLoop(() => {});
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, [gl]);
+
+  return null;
+}
+
+// Particle sphere - hundreds of tiny dots forming a sphere outline
+function ParticleSphere() {
+  const pointsRef = useRef<THREE.Points>(null);
+
+  const { positions, colors, sizes } = useMemo(() => {
+    const count = 600;
+    const pos = new Float32Array(count * 3);
+    const col = new Float32Array(count * 3);
+    const siz = new Float32Array(count);
+
+    const baseColors = [
+      new THREE.Color('#8CC63F'),
+      new THREE.Color('#5BA3D9'),
+      new THREE.Color('#B8D4E3'),
+      new THREE.Color('#F4D03F'),
+    ];
+
+    for (let i = 0; i < count; i++) {
+      // Fibonacci sphere distribution for even spacing
+      const y = 1 - (i / (count - 1)) * 2;
+      const radiusAtY = Math.sqrt(1 - y * y);
+      const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+      const theta = goldenAngle * i;
+
+      const r = SPHERE_RADIUS + (Math.random() - 0.5) * 0.15;
+      pos[i * 3] = Math.cos(theta) * radiusAtY * r;
+      pos[i * 3 + 1] = y * r;
+      pos[i * 3 + 2] = Math.sin(theta) * radiusAtY * r;
+
+      const color = baseColors[i % baseColors.length];
+      col[i * 3] = color.r;
+      col[i * 3 + 1] = color.g;
+      col[i * 3 + 2] = color.b;
+
+      siz[i] = 1.5 + Math.random() * 2;
+    }
+
+    return { positions: pos, colors: col, sizes: siz };
+  }, []);
+
+  useFrame((_, delta) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y += delta * 0.08;
+    }
+  });
+
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    return geo;
+  }, [positions, colors, sizes]);
+
+  return (
+    <points ref={pointsRef} geometry={geometry}>
+      <pointsMaterial
+        size={0.03}
+        vertexColors
+        transparent
+        opacity={0.6}
+        sizeAttenuation
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+}
+
+// Inner wireframe sphere for depth
+function WireframeSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((_, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.15;
-      meshRef.current.rotation.x += delta * 0.05;
+      meshRef.current.rotation.y += delta * 0.08;
+      meshRef.current.rotation.x += delta * 0.02;
     }
   });
 
   return (
     <mesh ref={meshRef}>
-      <icosahedronGeometry args={[1.5, 2]} />
-      <meshPhysicalMaterial
-        color="#A8E6CF"
+      <icosahedronGeometry args={[SPHERE_RADIUS * 0.85, 1]} />
+      <meshBasicMaterial
+        color="#8CC63F"
+        wireframe
         transparent
-        opacity={0.15}
-        transmission={0.6}
-        roughness={0.2}
-        metalness={0.1}
-        thickness={1.5}
-        side={THREE.DoubleSide}
+        opacity={0.06}
       />
     </mesh>
   );
 }
 
-function SkillNodes({
-  onHover,
-}: {
-  onHover: (skill: SkillNode | null) => void;
-}) {
-  const groupRef = useRef<THREE.Group>(null);
-  const [hovered, setHovered] = useState<string | null>(null);
+// Connection lines between skill nodes
+function ConnectionLines() {
+  const linesRef = useRef<THREE.Group>(null);
+
+  const lineData = useMemo(() => {
+    const lines: { start: THREE.Vector3; end: THREE.Vector3; color: string }[] = [];
+    const nodePositions = SKILLS.map((s) => {
+      const x = SPHERE_RADIUS * Math.sin(s.phi) * Math.cos(s.theta);
+      const y = SPHERE_RADIUS * Math.cos(s.phi);
+      const z = SPHERE_RADIUS * Math.sin(s.phi) * Math.sin(s.theta);
+      return new THREE.Vector3(x, y, z);
+    });
+
+    // Connect each node to its 2 nearest neighbors
+    for (let i = 0; i < nodePositions.length; i++) {
+      const distances = nodePositions
+        .map((p, j) => ({ dist: nodePositions[i].distanceTo(p), index: j }))
+        .filter((d) => d.index !== i)
+        .sort((a, b) => a.dist - b.dist);
+
+      for (let k = 0; k < Math.min(2, distances.length); k++) {
+        const j = distances[k].index;
+        if (j > i) {
+          lines.push({
+            start: nodePositions[i],
+            end: nodePositions[j],
+            color: SKILLS[i].color,
+          });
+        }
+      }
+    }
+    return lines;
+  }, []);
 
   useFrame((_, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.15;
-      groupRef.current.rotation.x += delta * 0.05;
+    if (linesRef.current) {
+      linesRef.current.rotation.y += delta * 0.08;
     }
   });
 
-  const nodes = useMemo(() => {
-    return SKILLS.map((skill) => {
-      const vec = new THREE.Vector3(...skill.position).normalize().multiplyScalar(1.55);
-      return { ...skill, worldPos: vec.toArray() as [number, number, number] };
+  const lineObjects = useMemo(() => {
+    return lineData.map((ld) => {
+      const points = [ld.start, ld.end];
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = new THREE.LineBasicMaterial({
+        color: ld.color,
+        transparent: true,
+        opacity: 0.2,
+      });
+      return new THREE.Line(geometry, material);
     });
-  }, []);
+  }, [lineData]);
 
   return (
-    <group ref={groupRef}>
-      {nodes.map((skill) => (
-        <mesh
-          key={skill.name}
-          position={skill.worldPos}
-          onPointerOver={(e) => {
-            e.stopPropagation();
-            setHovered(skill.name);
-            onHover(skill);
-            document.body.style.cursor = 'pointer';
-          }}
-          onPointerOut={() => {
-            setHovered(null);
-            onHover(null);
-            document.body.style.cursor = 'auto';
-          }}
-          scale={hovered === skill.name ? 1.6 : 1}
-        >
-          <sphereGeometry args={[0.12, 16, 16]} />
-          <meshBasicMaterial
-            color={skill.color}
-            transparent
-            opacity={hovered === skill.name ? 1 : 0.7}
-          />
-          <Html
-            distanceFactor={8}
-            style={{
-              pointerEvents: 'none',
-              transition: 'all 0.3s',
-              opacity: hovered === skill.name ? 1 : 0.6,
-              transform: `scale(${hovered === skill.name ? 1.3 : 1})`,
-            }}
-          >
-            <div
-              className="flex items-center justify-center w-8 h-8 rounded-full"
-              style={{
-                background: `${skill.color}25`,
-                border: `1px solid ${skill.color}70`,
-                boxShadow: `0 0 15px ${skill.color}35`,
-                color: skill.color,
-              }}
-            >
-              {skill.icon}
-            </div>
-          </Html>
-        </mesh>
+    <group ref={linesRef}>
+      {lineObjects.map((obj, i) => (
+        <primitive key={i} object={obj} />
       ))}
     </group>
   );
 }
 
-function ConnectingLines() {
-  const linesRef = useRef<THREE.LineSegments>(null);
+// Floating skill labels
+function SkillNodes({
+  onHover,
+  hoveredName,
+}: {
+  onHover: (name: string | null) => void;
+  hoveredName: string | null;
+}) {
+  const groupRef = useRef<THREE.Group>(null);
 
-  const geometry = useMemo(() => {
-    const points: THREE.Vector3[] = [];
-    const nodes = SKILLS.map((s) =>
-      new THREE.Vector3(...s.position).normalize().multiplyScalar(1.55)
-    );
-
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        points.push(nodes[i], nodes[j]);
-      }
-    }
-
-    const geo = new THREE.BufferGeometry().setFromPoints(points);
-    return geo;
+  const nodePositions = useMemo(() => {
+    return SKILLS.map((s) => {
+      const x = SPHERE_RADIUS * Math.sin(s.phi) * Math.cos(s.theta);
+      const y = SPHERE_RADIUS * Math.cos(s.phi);
+      const z = SPHERE_RADIUS * Math.sin(s.phi) * Math.sin(s.theta);
+      return new THREE.Vector3(x, y, z);
+    });
   }, []);
 
   useFrame((_, delta) => {
-    if (linesRef.current) {
-      linesRef.current.rotation.y += delta * 0.15;
-      linesRef.current.rotation.x += delta * 0.05;
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.08;
     }
   });
 
   return (
-    <lineSegments ref={linesRef} geometry={geometry}>
-      <lineBasicMaterial color="#A8E6CF" transparent opacity={0.12} />
-    </lineSegments>
+    <group ref={groupRef}>
+      {SKILLS.map((skill, i) => {
+        const pos = nodePositions[i];
+        const isHovered = hoveredName === skill.name;
+
+        return (
+          <group key={skill.name} position={[pos.x, pos.y, pos.z]}>
+            {/* Glowing dot at node position */}
+            <mesh>
+              <sphereGeometry args={[isHovered ? 0.1 : 0.06, 16, 16]} />
+              <meshBasicMaterial
+                color={skill.color}
+                transparent
+                opacity={isHovered ? 1 : 0.8}
+              />
+            </mesh>
+
+            {/* Glow ring */}
+            {isHovered && (
+              <mesh>
+                <ringGeometry args={[0.12, 0.18, 32]} />
+                <meshBasicMaterial
+                  color={skill.color}
+                  transparent
+                  opacity={0.4}
+                  side={THREE.DoubleSide}
+                />
+              </mesh>
+            )}
+
+            {/* HTML label */}
+            <Html
+              distanceFactor={6}
+              style={{
+                pointerEvents: 'auto',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                transform: `scale(${isHovered ? 1.15 : 1})`,
+              }}
+              center
+              position={[0, 0.3, 0]}
+            >
+              <div
+                onMouseEnter={() => onHover(skill.name)}
+                onMouseLeave={() => onHover(null)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: isHovered ? '6px 14px' : '4px 10px',
+                  borderRadius: '12px',
+                  background: isHovered
+                    ? 'rgba(255, 255, 255, 0.95)'
+                    : 'rgba(255, 255, 255, 0.8)',
+                  border: `1.5px solid ${isHovered ? skill.color : skill.color + '60'}`,
+                  boxShadow: isHovered
+                    ? `0 4px 24px ${skill.color}50, 0 0 40px ${skill.color}20`
+                    : `0 2px 12px rgba(0,0,0,0.06)`,
+                  backdropFilter: 'blur(12px)',
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  userSelect: 'none',
+                  fontSize: isHovered ? '13px' : '12px',
+                  fontWeight: isHovered ? 600 : 500,
+                  color: isHovered ? skill.color : '#4A6B4A',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                <span style={{ fontSize: '14px' }}>{skill.icon}</span>
+                <span>{skill.name}</span>
+                {isHovered && (
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      padding: '1px 6px',
+                      borderRadius: '6px',
+                      background: skill.color + '18',
+                      color: skill.color,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {skill.level}
+                  </span>
+                )}
+              </div>
+            </Html>
+          </group>
+        );
+      })}
+    </group>
   );
 }
 
+// Ambient floating particles around the sphere
+function AmbientParticles() {
+  const pointsRef = useRef<THREE.Points>(null);
+
+  const positions = useMemo(() => {
+    const count = 80;
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const r = SPHERE_RADIUS * (1.5 + Math.random() * 1.5);
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.random() * Math.PI;
+      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      pos[i * 3 + 1] = r * Math.cos(phi);
+      pos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+    }
+    return pos;
+  }, []);
+
+  useFrame((state) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02;
+      // Gentle floating
+      const posArray = pointsRef.current.geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < posArray.length / 3; i++) {
+        posArray[i * 3 + 1] += Math.sin(state.clock.elapsedTime * 0.5 + i) * 0.001;
+      }
+      pointsRef.current.geometry.attributes.position.needsUpdate = true;
+    }
+  });
+
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return geo;
+  }, [positions]);
+
+  return (
+    <points ref={pointsRef} geometry={geometry}>
+      <pointsMaterial
+        size={0.02}
+        color="#8CC63F"
+        transparent
+        opacity={0.35}
+        sizeAttenuation
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+}
+
+// CSS Fallback for non-WebGL browsers
 function FallbackPlanet() {
   return (
-    <div className="flex items-center justify-center h-[400px] md:h-[500px]">
-      <div className="relative">
-        {/* CSS fallback - rotating rings */}
+    <div className="flex items-center justify-center h-[400px] md:h-[480px]">
+      <div className="relative w-72 h-72">
+        {/* Orbit rings */}
         <div
-          className="w-64 h-64 rounded-full border border-[#A8E6CF]/25 animate-spin-slow"
-          style={{ animationDuration: '20s' }}
+          className="absolute inset-0 rounded-full"
+          style={{
+            border: '1px dashed rgba(109, 179, 63, 0.3)',
+            animation: 'spin-slow 20s linear infinite',
+          }}
         />
         <div
-          className="absolute inset-4 rounded-full border border-[#7EC8E3]/20"
-          style={{ animation: 'spin-slow 15s linear infinite reverse' }}
+          className="absolute inset-6 rounded-full"
+          style={{
+            border: '1px dashed rgba(91, 163, 217, 0.25)',
+            animation: 'spin-slow 15s linear infinite reverse',
+          }}
         />
         <div
-          className="absolute inset-8 rounded-full border border-[#FFB7C5]/18"
-          style={{ animation: 'spin-slow 10s linear infinite' }}
+          className="absolute inset-12 rounded-full"
+          style={{
+            border: '1px dashed rgba(244, 208, 63, 0.2)',
+            animation: 'spin-slow 10s linear infinite',
+          }}
         />
-        {/* Skill dots */}
+        {/* Skill nodes */}
         {SKILLS.map((skill, i) => {
           const angle = (i / SKILLS.length) * Math.PI * 2;
-          const x = Math.cos(angle) * 80;
-          const y = Math.sin(angle) * 80;
+          const x = Math.cos(angle) * 110;
+          const y = Math.sin(angle) * 110;
           return (
             <div
               key={skill.name}
-              className="absolute w-10 h-10 rounded-full flex items-center justify-center"
+              className="absolute flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium"
               style={{
-                left: `calc(50% + ${x}px - 20px)`,
-                top: `calc(50% + ${y}px - 20px)`,
-                background: `${skill.color}20`,
+                left: `calc(50% + ${x}px - 30px)`,
+                top: `calc(50% + ${y}px - 14px)`,
+                background: 'rgba(255, 255, 255, 0.85)',
                 border: `1px solid ${skill.color}50`,
-                boxShadow: `0 0 15px ${skill.color}30`,
-                color: skill.color,
+                boxShadow: `0 2px 12px ${skill.color}20`,
+                color: '#4A6B4A',
               }}
             >
-              {skill.icon}
+              <span>{skill.icon}</span>
+              <span>{skill.name}</span>
             </div>
           );
         })}
+        {/* Center */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-4xl font-bold text-gradient-spring">技能</span>
+          <div
+            className="w-16 h-16 rounded-full flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(109, 179, 63, 0.25), rgba(91, 163, 217, 0.2))',
+              border: '1.5px solid rgba(109, 179, 63, 0.4)',
+            }}
+          >
+            <span className="text-xl font-bold text-gradient-spring">技能</span>
+          </div>
         </div>
       </div>
     </div>
@@ -203,11 +436,15 @@ function FallbackPlanet() {
 }
 
 export default function SkillPlanet() {
-  const [hoveredSkill, setHoveredSkill] = useState<SkillNode | null>(null);
+  const [hoveredName, setHoveredName] = useState<string | null>(null);
   const [webglAvailable, setWebglAvailable] = useState(true);
 
   useEffect(() => {
     setWebglAvailable(isWebGLAvailable());
+  }, []);
+
+  const handleHover = useCallback((name: string | null) => {
+    setHoveredName(name);
   }, []);
 
   if (!webglAvailable) {
@@ -215,41 +452,52 @@ export default function SkillPlanet() {
   }
 
   return (
-    <div className="relative w-full h-[400px] md:h-[500px]">
+    <div className="relative w-full h-[400px] md:h-[480px]">
       <Canvas
-        camera={{ position: [0, 0, 4], fov: 50 }}
+        camera={{ position: [0, 0.5, 5.5], fov: 45 }}
         style={{ background: 'transparent' }}
-        gl={{ alpha: true, antialias: true }}
+        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        dpr={[1, 1.5]}
       >
-        <ambientLight intensity={0.5} />
-        <GlassSphere />
-        <ConnectingLines />
-        <SkillNodes onHover={setHoveredSkill} />
+        <VisibilityController />
+
+        {/* Soft ambient light */}
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[5, 5, 5]} intensity={0.3} color="#8CC63F" />
+
+        {/* Particle sphere outline */}
+        <ParticleSphere />
+
+        {/* Inner wireframe for depth */}
+        <WireframeSphere />
+
+        {/* Connection lines */}
+        <ConnectionLines />
+
+        {/* Floating skill labels */}
+        <SkillNodes onHover={handleHover} hoveredName={hoveredName} />
+
+        {/* Ambient particles */}
+        <AmbientParticles />
+
+        {/* Controls */}
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.5}
+          autoRotate={false}
+          rotateSpeed={0.4}
+          dampingFactor={0.1}
+          enableDamping
         />
       </Canvas>
 
-      {/* Hover tooltip */}
-      {hoveredSkill && (
-        <div
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl text-center pointer-events-none"
-          style={{
-            background: 'rgba(255, 255, 255, 0.9)',
-            border: `1px solid ${hoveredSkill.color}50`,
-            boxShadow: `0 4px 20px ${hoveredSkill.color}25`,
-            backdropFilter: 'blur(10px)',
-          }}
-        >
-          <span className="mr-2" style={{ color: hoveredSkill.color }}>{hoveredSkill.icon}</span>
-          <span className="font-semibold" style={{ color: '#2D3A3A' }}>
-            {hoveredSkill.name}
-          </span>
-        </div>
-      )}
+      {/* Bottom hint */}
+      <div
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs pointer-events-none"
+        style={{ color: 'rgba(90, 107, 107, 0.4)' }}
+      >
+        拖拽旋转 · 悬停查看
+      </div>
     </div>
   );
 }

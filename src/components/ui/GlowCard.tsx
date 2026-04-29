@@ -15,15 +15,15 @@ export default function GlowCard({
   glowColor = 'mint',
 }: GlowCardProps) {
   const glowColors = {
-    mint: 'rgba(168, 230, 207, 0.2)',
-    sky: 'rgba(126, 200, 227, 0.2)',
-    petal: 'rgba(255, 183, 197, 0.2)',
+    mint: 'rgba(109, 179, 63, 0.2)',
+    sky: 'rgba(91, 163, 217, 0.2)',
+    petal: 'rgba(244, 208, 63, 0.2)',
   };
 
   const borderColors = {
-    mint: 'rgba(168, 230, 207, 0.5)',
-    sky: 'rgba(126, 200, 227, 0.5)',
-    petal: 'rgba(255, 183, 197, 0.5)',
+    mint: 'rgba(109, 179, 63, 0.5)',
+    sky: 'rgba(91, 163, 217, 0.5)',
+    petal: 'rgba(244, 208, 63, 0.5)',
   };
 
   return (

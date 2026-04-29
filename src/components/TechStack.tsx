@@ -36,10 +36,10 @@ function CircleCell({ skill, index, isInView }: CircleCellProps) {
           background: isHovered
             ? `linear-gradient(135deg, rgba(255,255,255,0.9), ${skill.color}18)`
             : 'rgba(255, 255, 255, 0.75)',
-          border: `1.5px solid ${isHovered ? skill.color : 'rgba(168, 230, 207, 0.4)'}`,
+          border: `1.5px solid ${isHovered ? skill.color : 'rgba(109, 179, 63, 0.4)'}`,
           boxShadow: isHovered
             ? `0 8px 32px ${skill.color}25, 0 2px 8px rgba(0,0,0,0.06)`
-            : '0 4px 20px rgba(139, 196, 138, 0.12), 0 1px 4px rgba(0, 0, 0, 0.04)',
+            : '0 4px 20px rgba(109, 179, 63, 0.12), 0 1px 4px rgba(0, 0, 0, 0.04)',
           transform: isHovered ? 'translateZ(15px) scale(1.05)' : 'translateZ(0)',
           backdropFilter: 'blur(10px)',
         }}
@@ -48,7 +48,7 @@ function CircleCell({ skill, index, isInView }: CircleCellProps) {
         <div
           className="mb-1.5 transition-transform duration-300"
           style={{
-            color: isHovered ? skill.color : '#8FA0A0',
+            color: isHovered ? skill.color : '#7A9A7A',
             transform: isHovered ? 'scale(1.15)' : 'scale(1)',
           }}
         >
@@ -56,7 +56,7 @@ function CircleCell({ skill, index, isInView }: CircleCellProps) {
         </div>
         <div
           className="text-xs font-semibold transition-colors duration-300"
-          style={{ color: isHovered ? '#2D3A3A' : '#5A6B6B' }}
+          style={{ color: isHovered ? '#2C3E2D' : '#4A6B4A' }}
         >
           {skill.name}
         </div>
@@ -129,11 +129,11 @@ export default function TechStack() {
     <section id="skills" className="section-padding relative overflow-hidden" ref={sectionRef}>
       {/* Background floating leaves */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <FloatingLeaf delay={0} left="10%" color="#8BC48A" size={12} duration={14} />
-        <FloatingLeaf delay={3} left="25%" color="#FFB7C5" size={10} duration={18} />
-        <FloatingLeaf delay={6} left="60%" color="#8BC48A" size={14} duration={16} />
-        <FloatingLeaf delay={9} left="80%" color="#FFB7C5" size={11} duration={20} />
-        <FloatingLeaf delay={12} left="45%" color="#8BC48A" size={13} duration={15} />
+        <FloatingLeaf delay={0} left="10%" color="#6DB33F" size={12} duration={14} />
+        <FloatingLeaf delay={3} left="25%" color="#F4D03F" size={10} duration={18} />
+        <FloatingLeaf delay={6} left="60%" color="#6DB33F" size={14} duration={16} />
+        <FloatingLeaf delay={9} left="80%" color="#F4D03F" size={11} duration={20} />
+        <FloatingLeaf delay={12} left="45%" color="#6DB33F" size={13} duration={15} />
       </div>
 
       {/* Soft background gradient */}
@@ -141,7 +141,7 @@ export default function TechStack() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse at 50% 50%, rgba(168, 230, 207, 0.08) 0%, transparent 60%)',
+            'radial-gradient(ellipse at 50% 50%, rgba(109, 179, 63, 0.08) 0%, transparent 60%)',
         }}
       />
 
@@ -156,14 +156,14 @@ export default function TechStack() {
           <span
             className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
             style={{
-              background: 'rgba(126, 200, 227, 0.12)',
-              color: '#5A6B6B',
-              border: '1px solid rgba(126, 200, 227, 0.3)',
+              background: 'rgba(91, 163, 217, 0.12)',
+              color: '#4A6B4A',
+              border: '1px solid rgba(91, 163, 217, 0.3)',
             }}
           >
             技术栈
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#2D3A3A]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2C3E2D]">
             我的工具箱
           </h2>
         </motion.div>

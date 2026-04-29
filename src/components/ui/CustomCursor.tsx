@@ -65,34 +65,35 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Main cursor */}
+      {/* Main cursor - Nature Style */}
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 pointer-events-none z-[99999]"
         style={{
-          width: isHovering ? 8 : 20,
-          height: isHovering ? 8 : 20,
+          width: isHovering ? 6 : 16,
+          height: isHovering ? 6 : 16,
           borderRadius: '50%',
-          border: isHovering ? 'none' : '2px solid #7EC8E3',
-          background: isHovering ? '#8BC48A' : 'transparent',
+          border: isHovering ? 'none' : '2px solid #5BA3D9',
+          background: isHovering ? '#8CC63F' : 'transparent',
           boxShadow: isHovering
-            ? '0 0 12px rgba(139, 196, 138, 0.5)'
-            : '0 0 12px rgba(126, 200, 227, 0.3)',
-          transition: 'width 0.2s, height 0.2s, background 0.2s, border 0.2s',
+            ? '0 0 8px rgba(109, 179, 63, 0.4)'
+            : '0 0 8px rgba(91, 163, 217, 0.2)',
+          transition: 'width 0.15s, height 0.15s, background 0.15s, border 0.15s',
           opacity: isHidden ? 0 : 1,
         }}
       />
-      {/* Trail - removed for cleaner nature style, replaced with subtle ring */}
+      {/* Ripple Effect */}
       <div
         ref={trailRef}
         className="fixed top-0 left-0 pointer-events-none z-[99998]"
         style={{
-          width: 32,
-          height: 32,
+          width: isHovering ? 24 : 32,
+          height: isHovering ? 24 : 32,
           borderRadius: '50%',
-          border: '1px solid rgba(168, 230, 207, 0.2)',
-          opacity: isHidden ? 0 : 0.4,
-          transition: 'opacity 0.3s',
+          border: isHovering ? '1px solid rgba(109, 179, 63, 0.3)' : '1px solid rgba(109, 179, 63, 0.15)',
+          opacity: isHidden ? 0 : (isHovering ? 0.6 : 0.3),
+          transition: 'width 0.3s, height 0.3s, opacity 0.3s, border-color 0.3s',
+          animation: isHovering ? 'ripple 1.5s ease-out infinite' : 'none',
         }}
       />
     </>

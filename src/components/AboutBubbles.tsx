@@ -27,19 +27,19 @@ function Bubble({ text, side, delay, icon }: BubbleProps) {
         style={{
           background:
             side === 'right'
-              ? 'linear-gradient(135deg, rgba(168, 230, 207, 0.2), rgba(255, 183, 197, 0.15))'
+              ? 'linear-gradient(135deg, rgba(109, 179, 63, 0.2), rgba(244, 208, 63, 0.15))'
               : 'rgba(255, 255, 255, 0.8)',
           borderRadius: side === 'right' ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
           border: `1px solid ${
             side === 'right'
-              ? 'rgba(168, 230, 207, 0.3)'
-              : 'rgba(168, 230, 207, 0.25)'
+              ? 'rgba(109, 179, 63, 0.3)'
+              : 'rgba(109, 179, 63, 0.25)'
           }`,
-          color: side === 'right' ? '#2D3A3A' : '#5A6B6B',
+          color: side === 'right' ? '#2C3E2D' : '#4A6B4A',
           boxShadow:
             side === 'right'
-              ? '0 4px 20px rgba(168, 230, 207, 0.15)'
-              : '0 4px 16px rgba(139, 196, 138, 0.1)',
+              ? '0 4px 20px rgba(109, 179, 63, 0.15)'
+              : '0 4px 16px rgba(109, 179, 63, 0.1)',
         }}
       >
         <p>
@@ -72,7 +72,7 @@ export default function AboutBubbles() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse at 50% 30%, rgba(168, 230, 207, 0.12) 0%, transparent 60%)',
+            'radial-gradient(ellipse at 50% 30%, rgba(109, 179, 63, 0.12) 0%, transparent 60%)',
         }}
       />
 
@@ -87,14 +87,14 @@ export default function AboutBubbles() {
           <span
             className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
             style={{
-              background: 'rgba(168, 230, 207, 0.15)',
-              color: '#5A6B6B',
-              border: '1px solid rgba(168, 230, 207, 0.35)',
+              background: 'rgba(109, 179, 63, 0.15)',
+              color: '#4A6B4A',
+              border: '1px solid rgba(109, 179, 63, 0.35)',
             }}
           >
             关于我
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#2D3A3A]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2C3E2D]">
             用对话了解我
           </h2>
         </motion.div>

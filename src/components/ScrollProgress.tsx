@@ -5,12 +5,12 @@ export default function ScrollProgress() {
   const [activeSection, setActiveSection] = useState(0);
 
   const sections = [
-    { color: '#8BC48A', id: 'hero' },
-    { color: '#7EC8E3', id: 'about' },
-    { color: '#A8E6CF', id: 'skills' },
-    { color: '#FFB7C5', id: 'projects' },
-    { color: '#FFD93D', id: 'blog' },
-    { color: '#C9B1FF', id: 'contact' },
+    { color: '#6DB33F', id: 'hero' },
+    { color: '#5BA3D9', id: 'about' },
+    { color: '#8CC63F', id: 'skills' },
+    { color: '#F4D03F', id: 'projects' },
+    { color: '#F5C542', id: 'blog' },
+    { color: '#B8D4E3', id: 'contact' },
   ];
 
   useEffect(() => {
@@ -72,8 +72,8 @@ export default function ScrollProgress() {
           className="h-full transition-all duration-100"
           style={{
             width: `${progress}%`,
-            background: 'linear-gradient(90deg, #8BC48A, #7EC8E3, #FFB7C5)',
-            boxShadow: '0 0 10px rgba(126, 200, 227, 0.25)',
+            background: 'linear-gradient(90deg, #6DB33F, #5BA3D9, #F4D03F)',
+            boxShadow: '0 0 10px rgba(91, 163, 217, 0.25)',
           }}
         />
       </div>

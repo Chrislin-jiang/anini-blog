@@ -27,7 +27,7 @@ export default function Hero() {
 
       {/* Gradient overlay for depth */}
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F7F9F4]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F5F7F0]" />
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
@@ -93,7 +93,7 @@ export default function Hero() {
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
             className="absolute -top-3 -right-3"
-            style={{ color: 'rgba(168, 230, 207, 0.5)' }}
+            style={{ color: 'rgba(109, 179, 63, 0.5)' }}
           >
             <Leaf size={18} />
           </motion.div>
@@ -101,7 +101,7 @@ export default function Hero() {
             animate={{ rotate: -360 }}
             transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
             className="absolute -bottom-2 -left-2"
-            style={{ color: 'rgba(255, 183, 197, 0.5)' }}
+            style={{ color: 'rgba(244, 208, 63, 0.5)' }}
           >
             <Flower2 size={16} />
           </motion.div>
@@ -111,7 +111,7 @@ export default function Hero() {
             <div
               className="absolute inset-0 rounded-full"
               style={{
-                background: 'linear-gradient(135deg, #8BC48A, #7EC8E3, #FFB7C5)',
+                background: 'linear-gradient(135deg, #6DB33F, #5BA3D9, #F4D03F)',
                 padding: 3,
               }}
             >
@@ -131,10 +131,10 @@ export default function Hero() {
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             className="absolute -top-2 -right-4 w-12 h-12 rounded-xl flex items-center justify-center"
             style={{
-              background: 'rgba(168, 230, 207, 0.2)',
-              border: '1px solid rgba(168, 230, 207, 0.4)',
-              boxShadow: '0 0 15px rgba(168, 230, 207, 0.15)',
-              color: '#5A6B6B',
+              background: 'rgba(109, 179, 63, 0.15)',
+              border: '1px solid rgba(109, 179, 63, 0.3)',
+              boxShadow: '0 0 15px rgba(109, 179, 63, 0.1)',
+              color: '#4A6B4A',
             }}
           >
             <Atom size={20} />
@@ -144,10 +144,10 @@ export default function Hero() {
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
             className="absolute -bottom-1 -left-5 w-10 h-10 rounded-lg flex items-center justify-center"
             style={{
-              background: 'rgba(255, 183, 197, 0.2)',
-              border: '1px solid rgba(255, 183, 197, 0.4)',
-              boxShadow: '0 0 15px rgba(255, 183, 197, 0.15)',
-              color: '#5A6B6B',
+              background: 'rgba(244, 208, 63, 0.15)',
+              border: '1px solid rgba(244, 208, 63, 0.3)',
+              boxShadow: '0 0 15px rgba(244, 208, 63, 0.1)',
+              color: '#4A6B4A',
             }}
           >
             <Palette size={18} />
@@ -164,10 +164,10 @@ export default function Hero() {
           <span
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
             style={{
-              background: 'rgba(168, 230, 207, 0.15)',
-              borderColor: 'rgba(168, 230, 207, 0.35)',
-              color: '#5A6B6B',
-              boxShadow: '0 0 20px rgba(168, 230, 207, 0.1)',
+              background: 'rgba(109, 179, 63, 0.12)',
+              borderColor: 'rgba(109, 179, 63, 0.25)',
+              color: '#4A6B4A',
+              boxShadow: '0 0 20px rgba(109, 179, 63, 0.08)',
             }}
           >
             <span className="animate-wave inline-block"><Hand size={16} /></span>
@@ -193,9 +193,9 @@ export default function Hero() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.8, ease: 'easeOut' }}
           className="text-lg md:text-xl mb-10 leading-relaxed max-w-lg"
-          style={{ color: '#5A6B6B' }}
+          style={{ color: '#4A6B4A' }}
         >
-          <span className="font-semibold" style={{ color: '#8BC48A' }}>
+          <span className="font-semibold" style={{ color: '#6DB33F' }}>
             前端工程师
           </span>{' '}
           · 掘金 2024 人气作者
@@ -227,14 +227,14 @@ export default function Hero() {
         <div
           className="w-6 h-10 rounded-full flex items-start justify-center p-1.5"
           style={{
-            border: '2px solid rgba(168, 230, 207, 0.5)',
+            border: '2px solid rgba(109, 179, 63, 0.4)',
           }}
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
             className="w-1.5 h-1.5 rounded-full"
-            style={{ background: 'rgba(139, 196, 138, 0.6)' }}
+            style={{ background: 'rgba(109, 179, 63, 0.5)' }}
           />
         </div>
       </motion.div>

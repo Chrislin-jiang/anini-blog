@@ -3,14 +3,14 @@ export default function Footer() {
     <footer
       className="py-12 px-6 border-t"
       style={{
-        borderColor: 'rgba(168, 230, 207, 0.25)',
-        background: 'linear-gradient(180deg, transparent, rgba(168, 230, 207, 0.05))',
+        borderColor: 'rgba(109, 179, 63, 0.25)',
+        background: 'linear-gradient(180deg, transparent, rgba(109, 179, 63, 0.05))',
       }}
     >
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="text-center md:text-left">
           <span className="text-lg font-bold text-gradient-cyan-purple">Anini</span>
-          <p className="text-sm mt-1" style={{ color: '#5A6B6B' }}>
+          <p className="text-sm mt-1" style={{ color: '#4A6B4A' }}>
             前端工程师 · 热爱创造
           </p>
         </div>
@@ -26,8 +26,8 @@ export default function Footer() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm transition-colors hover:text-[#7EC8E3]"
-              style={{ color: '#8FA0A0' }}
+              className="text-sm transition-colors hover:text-[#5BA3D9]"
+              style={{ color: '#7A9A7A' }}
             >
               {link.label}
             </a>

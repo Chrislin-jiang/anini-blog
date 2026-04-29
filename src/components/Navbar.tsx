@@ -30,7 +30,7 @@ export default function Navbar() {
         style={{
           background: scrolled ? 'rgba(247, 249, 244, 0.9)' : 'transparent',
           backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(168, 230, 207, 0.25)' : '1px solid transparent',
+          borderBottom: scrolled ? '1px solid rgba(109, 179, 63, 0.25)' : '1px solid transparent',
         }}
       >
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -46,16 +46,16 @@ export default function Navbar() {
                 key={item.label}
                 href={item.href}
                 className="relative px-4 py-2 text-sm font-medium transition-colors group"
-                style={{ color: '#5A6B6B' }}
+                style={{ color: '#4A6B4A' }}
               >
-                <span className="group-hover:text-[#2D3A3A] transition-colors">
+                <span className="group-hover:text-[#2C3E2D] transition-colors">
                   {item.label}
                 </span>
                 <span
                   className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] group-hover:w-4/5 transition-all duration-300 rounded-full"
                   style={{
-                    background: 'linear-gradient(90deg, #8BC48A, #7EC8E3)',
-                    boxShadow: '0 0 8px rgba(126, 200, 227, 0.25)',
+                    background: 'linear-gradient(90deg, #6DB33F, #5BA3D9)',
+                    boxShadow: '0 0 8px rgba(91, 163, 217, 0.25)',
                   }}
                 />
               </a>
@@ -70,21 +70,21 @@ export default function Navbar() {
             <span
               className="w-6 h-[2px] transition-all duration-300"
               style={{
-                background: '#8BC48A',
+                background: '#6DB33F',
                 transform: mobileOpen ? 'rotate(45deg) translateY(4px)' : 'none',
               }}
             />
             <span
               className="w-6 h-[2px] transition-all duration-300"
               style={{
-                background: '#8BC48A',
+                background: '#6DB33F',
                 opacity: mobileOpen ? 0 : 1,
               }}
             />
             <span
               className="w-6 h-[2px] transition-all duration-300"
               style={{
-                background: '#8BC48A',
+                background: '#6DB33F',
                 transform: mobileOpen ? 'rotate(-45deg) translateY(-4px)' : 'none',
               }}
             />
@@ -114,7 +114,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
                 className="text-2xl font-bold"
-                style={{ color: '#2D3A3A' }}
+                style={{ color: '#2C3E2D' }}
               >
                 {item.label}
               </motion.a>
