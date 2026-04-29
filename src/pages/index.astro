@@ -9,18 +9,23 @@ import BlogList from '../components/BlogList';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import ScrollProgress from '../components/ScrollProgress';
+import CustomCursor from '../components/ui/CustomCursor';
+import SmoothScrollProvider from '../components/SmoothScrollProvider';
 ---
 
 <BaseLayout>
+  <CustomCursor client:load />
   <ScrollProgress client:load />
   <Navbar client:load />
-  <main>
-    <Hero client:load />
-    <AboutBubbles client:visible />
-    <TechStack client:visible />
-    <ProjectCards client:visible />
-    <BlogList client:visible />
-    <Contact client:visible />
-  </main>
+  <SmoothScrollProvider client:load>
+    <main>
+      <Hero client:load />
+      <AboutBubbles client:only="react" />
+      <TechStack client:visible />
+      <ProjectCards client:visible />
+      <BlogList client:visible />
+      <Contact client:visible />
+    </main>
+  </SmoothScrollProvider>
   <Footer client:load />
 </BaseLayout>

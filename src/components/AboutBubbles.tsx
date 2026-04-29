@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import SkillPlanet from './3d/SkillPlanet';
 
 interface BubbleProps {
   text: string;
@@ -21,8 +21,27 @@ function Bubble({ text, side, delay, emoji }: BubbleProps) {
       transition={{ delay, duration: 0.5, type: 'spring', stiffness: 200, damping: 20 }}
       className={`flex ${side === 'right' ? 'justify-end' : 'justify-start'}`}
     >
-      <div className={side === 'right' ? 'chat-bubble chat-bubble-right' : 'chat-bubble'}>
-        <p className="text-[15px] leading-relaxed">
+      <div
+        className="max-w-[320px] relative px-5 py-4 text-[15px] leading-relaxed"
+        style={{
+          background:
+            side === 'right'
+              ? 'linear-gradient(135deg, rgba(0, 240, 255, 0.12), rgba(184, 41, 247, 0.12))'
+              : 'rgba(10, 10, 18, 0.8)',
+          borderRadius: side === 'right' ? '20px 20px 4px 20px' : '20px 20px 20px 4px',
+          border: `1px solid ${
+            side === 'right'
+              ? 'rgba(0, 240, 255, 0.2)'
+              : 'rgba(255, 255, 255, 0.08)'
+          }`,
+          color: side === 'right' ? '#F0F0F5' : '#8A8A9A',
+          boxShadow:
+            side === 'right'
+              ? '0 0 20px rgba(0, 240, 255, 0.1)'
+              : '0 4px 16px rgba(0, 0, 0, 0.3)',
+        }}
+      >
+        <p>
           {emoji && <span className="mr-1">{emoji}</span>}
           {text}
         </p>
@@ -42,15 +61,21 @@ export default function AboutBubbles() {
     { text: '做过可视化搭建平台、富文本编辑器、组件库等项目', side: 'right', delay: 0.7, emoji: '🎯' },
     { text: '喜欢建立知识体系，用输出倒逼输入', side: 'left', delay: 0.9, emoji: '📝' },
     { text: '最近在AI探索中...', side: 'right', delay: 1.1, emoji: '🤖' },
-    { text: '路阻且长，行则将至。坚定方向，坚持学习', side: 'left', delay: 1.1, emoji: '💡' },
+    { text: '路阻且长，行则将至。坚定方向，坚持学习', side: 'left', delay: 1.3, emoji: '💡' },
   ];
 
   return (
     <section id="about" className="section-padding relative" ref={sectionRef}>
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#E8F4FD]/50 to-transparent pointer-events-none" />
+      {/* Background glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse at 50% 30%, rgba(184, 41, 247, 0.08) 0%, transparent 60%)',
+        }}
+      />
 
-      <div className="relative z-10 max-w-2xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Section title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,28 +83,45 @@ export default function AboutBubbles() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#4A6CF7]/10 text-[#4A6CF7] text-sm font-medium mb-4">
+          <span
+            className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
+            style={{
+              background: 'rgba(0, 240, 255, 0.1)',
+              color: '#00F0FF',
+              border: '1px solid rgba(0, 240, 255, 0.2)',
+            }}
+          >
             关于我
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1A1A2E]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#F0F0F5]">
             用对话了解我
           </h2>
         </motion.div>
 
-        {/* Avatar in center */}
+        {/* 3D Skill Planet */}
         <motion.div
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : {}}
-          transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-          className="flex justify-center mb-10"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="mb-16"
         >
-          <div className="w-24 h-24 rounded-3xl overflow-hidden shadow-lg animate-float-slow">
-            <img src="/images/avatar.png" alt="Anini's avatar" className="w-full h-full object-cover" />
-          </div>
+          <SkillPlanet />
+        </motion.div>
+
+        {/* Orbiting text */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5 }}
+          className="text-center mb-12"
+        >
+          <p className="text-sm tracking-widest" style={{ color: '#5A5A6A' }}>
+            跨专业自学前端 · 滴滴前端工程师 · 掘金人气作者 · 可视化爱好者
+          </p>
         </motion.div>
 
         {/* Chat bubbles */}
-        <div className="space-y-5">
+        <div className="space-y-5 max-w-2xl mx-auto">
           {bubbles.map((bubble, i) => (
             <Bubble key={i} {...bubble} />
           ))}
