@@ -1,5 +1,16 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, type ReactNode } from 'react';
+import {
+  Code2,
+  Globe,
+  BookOpen,
+  FileText,
+  GitBranch,
+  Trophy,
+  Frown,
+  Equal,
+  Sparkles,
+} from 'lucide-react';
 
 type Choice = 'rock' | 'paper' | 'scissors';
 type Result = 'win' | 'lose' | 'draw' | null;
@@ -17,12 +28,24 @@ const resultMap: Record<Choice, Choice> = {
 };
 
 const contactLinks = [
-  { label: 'GitHub', icon: '🐙', href: 'https://github.com/Chrislin-jiang', color: '#00F0FF' },
-  { label: '古早站点', icon: '🐟', href: 'https://chrislin-jiang.github.io/code-girl/', color: '#B829F7' },
-  { label: '掘金', icon: '📘', href: 'https://juejin.cn/user/1908407919207006', color: '#FF0080' },
-  { label: '博客园', icon: '📝', href: 'https://www.cnblogs.com/chrislinlin/', color: '#00F0FF' },
-  { label: 'Gitee', icon: '🔶', href: 'https://gitee.com/chrislinlin', color: '#B829F7' },
+  { label: 'GitHub', icon: <Code2 size={24} />, href: 'https://github.com/Chrislin-jiang', color: '#00F0FF' },
+  { label: '古早站点', icon: <Globe size={24} />, href: 'https://chrislin-jiang.github.io/code-girl/', color: '#B829F7' },
+  { label: '掘金', icon: <BookOpen size={24} />, href: 'https://juejin.cn/user/1908407919207006', color: '#FF0080' },
+  { label: '博客园', icon: <FileText size={24} />, href: 'https://www.cnblogs.com/chrislinlin/', color: '#00F0FF' },
+  { label: 'Gitee', icon: <GitBranch size={24} />, href: 'https://gitee.com/chrislinlin', color: '#B829F7' },
 ];
+
+const resultText = {
+  win: '你赢了！',
+  lose: '你输了，再来！',
+  draw: '平局，再试试？',
+};
+
+const resultIcons: Record<Exclude<Result, null>, ReactNode> = {
+  win: <Trophy size={18} />,
+  lose: <Frown size={18} />,
+  draw: <Equal size={18} />,
+};
 
 export default function Contact() {
   const sectionRef = useRef(null);
@@ -73,12 +96,6 @@ export default function Contact() {
     },
     [isPlaying, addLog]
   );
-
-  const resultText = {
-    win: '🎉 你赢了！',
-    lose: '😅 你输了，再来！',
-    draw: '🤝 平局，再试试？',
-  };
 
   return (
     <section id="contact" className="section-padding relative" ref={sectionRef}>
@@ -136,7 +153,7 @@ export default function Contact() {
                     boxShadow: `0 0 15px ${link.color}20`,
                   }}
                 >
-                  <span className="text-2xl">{link.icon}</span>
+                  <span className="flex items-center justify-center" style={{ color: link.color }}>{link.icon}</span>
                 </div>
                 <div
                   className="cube-face cube-back"
@@ -233,7 +250,7 @@ export default function Contact() {
                     对手出了 {choices.find((c) => c.id === aiChoice)?.emoji}
                   </p>
                   <p
-                    className="text-lg font-bold"
+                    className="text-lg font-bold flex items-center justify-center gap-1"
                     style={{
                       color:
                         result === 'win'
@@ -243,6 +260,7 @@ export default function Contact() {
                           : '#FFE600',
                     }}
                   >
+                    {resultIcons[result]}
                     {resultText[result]}
                   </p>
                 </motion.div>
@@ -279,11 +297,12 @@ export default function Contact() {
                   >
                     {`
   ╔═══════════════════════════╗
-  ║  🎊 恭喜解锁隐藏彩蛋！    ║
+  ║  恭喜解锁隐藏彩蛋！       ║
   ╚═══════════════════════════╝
                     `}
                   </pre>
-                  <p className="text-sm font-medium" style={{ color: '#00F0FF' }}>
+                  <p className="text-sm font-medium flex items-center justify-center gap-1" style={{ color: '#00F0FF' }}>
+                    <Sparkles size={14} />
                     "路阻且长，行则将至。"
                   </p>
                 </motion.div>

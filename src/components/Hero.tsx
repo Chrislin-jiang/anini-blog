@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
+import { Atom, Palette, Hand } from 'lucide-react';
 import ParticleField from './3d/ParticleField';
 import NeonButton from './ui/NeonButton';
 
@@ -115,26 +116,28 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute -top-2 -right-4 w-12 h-12 rounded-xl flex items-center justify-center text-xl"
+            className="absolute -top-2 -right-4 w-12 h-12 rounded-xl flex items-center justify-center"
             style={{
               background: 'rgba(0, 240, 255, 0.1)',
               border: '1px solid rgba(0, 240, 255, 0.3)',
               boxShadow: '0 0 15px rgba(0, 240, 255, 0.2)',
+              color: '#00F0FF',
             }}
           >
-            ⚛️
+            <Atom size={20} />
           </motion.div>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-            className="absolute -bottom-1 -left-5 w-10 h-10 rounded-lg flex items-center justify-center text-lg"
+            className="absolute -bottom-1 -left-5 w-10 h-10 rounded-lg flex items-center justify-center"
             style={{
               background: 'rgba(184, 41, 247, 0.1)',
               border: '1px solid rgba(184, 41, 247, 0.3)',
               boxShadow: '0 0 15px rgba(184, 41, 247, 0.2)',
+              color: '#B829F7',
             }}
           >
-            🎨
+            <Palette size={18} />
           </motion.div>
         </motion.div>
 
@@ -154,7 +157,7 @@ export default function Hero() {
               boxShadow: '0 0 20px rgba(0, 240, 255, 0.1)',
             }}
           >
-            <span className="animate-wave inline-block">👋</span>
+            <span className="animate-wave inline-block"><Hand size={16} /></span>
             你好，欢迎来到我的空间
           </span>
         </motion.div>

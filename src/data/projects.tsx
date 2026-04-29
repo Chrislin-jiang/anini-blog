@@ -1,6 +1,9 @@
+import { type ReactNode } from 'react';
+import { Sparkles, Droplets, Tag, Pencil, Music, Search, Wind, Flame } from 'lucide-react';
+
 export interface Project {
   title: string;
-  description: string;
+  description: ReactNode;
   tags: string[];
   color: string;
   link: string;
@@ -31,7 +34,11 @@ export const projects: Project[] = [
   },
   {
     title: '出戏-OffStage',
-    description: `我做了一个小工具叫「出戏」🎭，输入你的念头，AI 帮你识别是哪个角色在说话，然后你可以选择：看见它🫧、给它贴标签🏷️、改写台词✏️、用滑稽腔念出来🎵、缩小🔍、吹走💨、融化🫠……，8种方式帮你「出戏」，而不是和念头硬刚。`,
+    description: (
+      <>
+        我做了一个小工具叫「出戏」<Sparkles size={14} className="inline" />，输入你的念头，AI 帮你识别是哪个角色在说话，然后你可以选择：看见它<Droplets size={14} className="inline" />、给它贴标签<Tag size={14} className="inline" />、改写台词<Pencil size={14} className="inline" />、用滑稽腔念出来<Music size={14} className="inline" />、缩小<Search size={14} className="inline" />、吹走<Wind size={14} className="inline" />、融化<Flame size={14} className="inline" />……，8种方式帮你「出戏」，而不是和念头硬刚。
+      </>
+    ),
     tags: ['React', 'AI', '认知解离'],
     color: 'from-blue-400 to-purple-500',
     link: 'https://thought-unhook.vercel.app/',

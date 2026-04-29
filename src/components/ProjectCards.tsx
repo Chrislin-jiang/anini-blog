@@ -1,6 +1,6 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { projects } from '../data/projects';
+import { projects } from '../data/projects.tsx';
 
 export default function ProjectCards() {
   const sectionRef = useRef(null);

@@ -1,23 +1,24 @@
-import { useRef, useState, useMemo, useEffect } from 'react';
+import { useRef, useState, useMemo, useEffect, type ReactNode } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
+import { Atom, FileCode, Code, Package, BarChart3, Bot } from 'lucide-react';
 import { isWebGLAvailable } from '../../utils/webgl';
 
 interface SkillNode {
   name: string;
-  icon: string;
+  icon: ReactNode;
   color: string;
   position: [number, number, number];
 }
 
 const SKILLS: SkillNode[] = [
-  { name: 'React', icon: '⚛️', color: '#00F0FF', position: [1.2, 0.8, 0.5] },
-  { name: 'TypeScript', icon: '📘', color: '#B829F7', position: [-0.8, 1.0, 0.8] },
-  { name: 'Vue', icon: '🟢', color: '#00F0FF', position: [0.5, -1.0, 0.9] },
-  { name: 'Webpack', icon: '📦', color: '#B829F7', position: [-1.0, -0.5, 0.7] },
-  { name: '可视化', icon: '📊', color: '#FF0080', position: [0.8, 0.3, -1.0] },
-  { name: 'AI', icon: '🤖', color: '#FF0080', position: [-0.5, 0.6, -1.1] },
+  { name: 'React', icon: <Atom size={16} />, color: '#00F0FF', position: [1.2, 0.8, 0.5] },
+  { name: 'TypeScript', icon: <FileCode size={16} />, color: '#B829F7', position: [-0.8, 1.0, 0.8] },
+  { name: 'Vue', icon: <Code size={16} />, color: '#00F0FF', position: [0.5, -1.0, 0.9] },
+  { name: 'Webpack', icon: <Package size={16} />, color: '#B829F7', position: [-1.0, -0.5, 0.7] },
+  { name: '可视化', icon: <BarChart3 size={16} />, color: '#FF0080', position: [0.8, 0.3, -1.0] },
+  { name: 'AI', icon: <Bot size={16} />, color: '#FF0080', position: [-0.5, 0.6, -1.1] },
 ];
 
 function WireframeSphere() {
@@ -100,11 +101,12 @@ function SkillNodes({
             }}
           >
             <div
-              className="flex items-center justify-center w-8 h-8 rounded-full text-lg"
+              className="flex items-center justify-center w-8 h-8 rounded-full"
               style={{
                 background: `${skill.color}20`,
                 border: `1px solid ${skill.color}60`,
                 boxShadow: `0 0 15px ${skill.color}40`,
+                color: skill.color,
               }}
             >
               {skill.icon}
@@ -174,13 +176,14 @@ function FallbackPlanet() {
           return (
             <div
               key={skill.name}
-              className="absolute w-10 h-10 rounded-full flex items-center justify-center text-lg"
+              className="absolute w-10 h-10 rounded-full flex items-center justify-center"
               style={{
                 left: `calc(50% + ${x}px - 20px)`,
                 top: `calc(50% + ${y}px - 20px)`,
                 background: `${skill.color}15`,
                 border: `1px solid ${skill.color}40`,
                 boxShadow: `0 0 15px ${skill.color}30`,
+                color: skill.color,
               }}
             >
               {skill.icon}
@@ -236,7 +239,7 @@ export default function SkillPlanet() {
             boxShadow: `0 0 20px ${hoveredSkill.color}30`,
           }}
         >
-          <span className="text-lg mr-2">{hoveredSkill.icon}</span>
+          <span className="mr-2" style={{ color: hoveredSkill.color }}>{hoveredSkill.icon}</span>
           <span className="font-semibold" style={{ color: hoveredSkill.color }}>
             {hoveredSkill.name}
           </span>

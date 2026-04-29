@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { skills, type Skill } from '../data/skills';
+import { skills, type Skill } from '../data/skills.tsx';
 
 interface HexCellProps {
   skill: (typeof skills)[0];
@@ -45,7 +45,7 @@ function HexCell({ skill, index, isInView }: HexCellProps) {
         }}
       >
         <div className="text-center">
-          <div className="text-2xl mb-1">{skill.icon}</div>
+          <div className="mb-1" style={{ color: skill.color }}>{skill.icon}</div>
           <div
             className="text-xs font-semibold"
             style={{ color: isHovered ? skill.color : '#8A8A9A' }}

@@ -1,15 +1,16 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, type ReactNode } from 'react';
+import { Smile, Rocket, Sparkles, Target, FileText, Bot, Lightbulb } from 'lucide-react';
 import SkillPlanet from './3d/SkillPlanet';
 
 interface BubbleProps {
   text: string;
   side: 'left' | 'right';
   delay: number;
-  emoji?: string;
+  icon?: ReactNode;
 }
 
-function Bubble({ text, side, delay, emoji }: BubbleProps) {
+function Bubble({ text, side, delay, icon }: BubbleProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
@@ -42,7 +43,7 @@ function Bubble({ text, side, delay, emoji }: BubbleProps) {
         }}
       >
         <p>
-          {emoji && <span className="mr-1">{emoji}</span>}
+          {icon && <span className="mr-1 inline-flex align-middle">{icon}</span>}
           {text}
         </p>
       </div>
@@ -54,14 +55,14 @@ export default function AboutBubbles() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
 
-  const bubbles: BubbleProps[] = [
-    { text: '跨专业自学前端，目前在滴滴做前端开发', side: 'left', delay: 0.1, emoji: '😊' },
-    { text: '主要技术栈 React + TypeScript，也熟悉 Vue / Webpack', side: 'right', delay: 0.3, emoji: '🚀' },
-    { text: '掘金写了 52 篇文章，15 万+ 阅读，2024 年度人气作者', side: 'left', delay: 0.5, emoji: '✨' },
-    { text: '做过可视化搭建平台、富文本编辑器、组件库等项目', side: 'right', delay: 0.7, emoji: '🎯' },
-    { text: '喜欢建立知识体系，用输出倒逼输入', side: 'left', delay: 0.9, emoji: '📝' },
-    { text: '最近在AI探索中...', side: 'right', delay: 1.1, emoji: '🤖' },
-    { text: '路阻且长，行则将至。坚定方向，坚持学习', side: 'left', delay: 1.3, emoji: '💡' },
+  const bubbles = [
+    { text: '跨专业自学前端，目前在滴滴做前端开发', side: 'left' as const, delay: 0.1, icon: <Smile size={16} /> },
+    { text: '主要技术栈 React + TypeScript，也熟悉 Vue / Webpack', side: 'right' as const, delay: 0.3, icon: <Rocket size={16} /> },
+    { text: '掘金写了 52 篇文章，15 万+ 阅读，2024 年度人气作者', side: 'left' as const, delay: 0.5, icon: <Sparkles size={16} /> },
+    { text: '做过可视化搭建平台、富文本编辑器、组件库等项目', side: 'right' as const, delay: 0.7, icon: <Target size={16} /> },
+    { text: '喜欢建立知识体系，用输出倒逼输入', side: 'left' as const, delay: 0.9, icon: <FileText size={16} /> },
+    { text: '最近在AI探索中...', side: 'right' as const, delay: 1.1, icon: <Bot size={16} /> },
+    { text: '路阻且长，行则将至。坚定方向，坚持学习', side: 'left' as const, delay: 1.3, icon: <Lightbulb size={16} /> },
   ];
 
   return (
