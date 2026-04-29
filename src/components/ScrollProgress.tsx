@@ -5,12 +5,12 @@ export default function ScrollProgress() {
   const [activeSection, setActiveSection] = useState(0);
 
   const sections = [
-    { color: '#00F0FF', id: 'hero' },
-    { color: '#B829F7', id: 'about' },
-    { color: '#00F0FF', id: 'skills' },
-    { color: '#FF0080', id: 'projects' },
-    { color: '#FFE600', id: 'blog' },
-    { color: '#FF0080', id: 'contact' },
+    { color: '#8BC48A', id: 'hero' },
+    { color: '#7EC8E3', id: 'about' },
+    { color: '#A8E6CF', id: 'skills' },
+    { color: '#FFB7C5', id: 'projects' },
+    { color: '#FFD93D', id: 'blog' },
+    { color: '#C9B1FF', id: 'contact' },
   ];
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function ScrollProgress() {
               className="absolute left-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300"
               style={{
                 top: `${markerPos}%`,
-                background: activeSection === i ? section.color : 'rgba(255,255,255,0.1)',
+                background: activeSection === i ? section.color : 'rgba(139,196,138,0.15)',
                 boxShadow:
                   activeSection === i
                     ? `0 0 8px ${section.color}80`
@@ -72,8 +72,8 @@ export default function ScrollProgress() {
           className="h-full transition-all duration-100"
           style={{
             width: `${progress}%`,
-            background: 'linear-gradient(90deg, #00F0FF, #B829F7, #FF0080)',
-            boxShadow: '0 0 10px rgba(0, 240, 255, 0.3)',
+            background: 'linear-gradient(90deg, #8BC48A, #7EC8E3, #FFB7C5)',
+            boxShadow: '0 0 10px rgba(126, 200, 227, 0.25)',
           }}
         />
       </div>

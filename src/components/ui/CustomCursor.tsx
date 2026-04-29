@@ -70,28 +70,28 @@ export default function CustomCursor() {
         ref={cursorRef}
         className="fixed top-0 left-0 pointer-events-none z-[99999]"
         style={{
-          width: isHovering ? 10 : 24,
-          height: isHovering ? 10 : 24,
+          width: isHovering ? 8 : 20,
+          height: isHovering ? 8 : 20,
           borderRadius: '50%',
-          border: isHovering ? 'none' : '2px solid #00F0FF',
-          background: isHovering ? '#FF0080' : 'transparent',
+          border: isHovering ? 'none' : '2px solid #7EC8E3',
+          background: isHovering ? '#8BC48A' : 'transparent',
           boxShadow: isHovering
-            ? '0 0 15px rgba(255, 0, 128, 0.6)'
-            : '0 0 15px rgba(0, 240, 255, 0.4)',
+            ? '0 0 12px rgba(139, 196, 138, 0.5)'
+            : '0 0 12px rgba(126, 200, 227, 0.3)',
           transition: 'width 0.2s, height 0.2s, background 0.2s, border 0.2s',
           opacity: isHidden ? 0 : 1,
         }}
       />
-      {/* Trail */}
+      {/* Trail - removed for cleaner nature style, replaced with subtle ring */}
       <div
         ref={trailRef}
         className="fixed top-0 left-0 pointer-events-none z-[99998]"
         style={{
-          width: 40,
-          height: 40,
+          width: 32,
+          height: 32,
           borderRadius: '50%',
-          border: '1px solid rgba(0, 240, 255, 0.15)',
-          opacity: isHidden ? 0 : 0.5,
+          border: '1px solid rgba(168, 230, 207, 0.2)',
+          opacity: isHidden ? 0 : 0.4,
           transition: 'opacity 0.3s',
         }}
       />

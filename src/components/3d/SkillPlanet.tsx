@@ -13,15 +13,15 @@ interface SkillNode {
 }
 
 const SKILLS: SkillNode[] = [
-  { name: 'React', icon: <Atom size={16} />, color: '#00F0FF', position: [1.2, 0.8, 0.5] },
-  { name: 'TypeScript', icon: <FileCode size={16} />, color: '#B829F7', position: [-0.8, 1.0, 0.8] },
-  { name: 'Vue', icon: <Code size={16} />, color: '#00F0FF', position: [0.5, -1.0, 0.9] },
-  { name: 'Webpack', icon: <Package size={16} />, color: '#B829F7', position: [-1.0, -0.5, 0.7] },
-  { name: '可视化', icon: <BarChart3 size={16} />, color: '#FF0080', position: [0.8, 0.3, -1.0] },
-  { name: 'AI', icon: <Bot size={16} />, color: '#FF0080', position: [-0.5, 0.6, -1.1] },
+  { name: 'React', icon: <Atom size={16} />, color: '#7EC8E3', position: [1.2, 0.8, 0.5] },
+  { name: 'TypeScript', icon: <FileCode size={16} />, color: '#A8E6CF', position: [-0.8, 1.0, 0.8] },
+  { name: 'Vue', icon: <Code size={16} />, color: '#8BC48A', position: [0.5, -1.0, 0.9] },
+  { name: 'Webpack', icon: <Package size={16} />, color: '#C9B1FF', position: [-1.0, -0.5, 0.7] },
+  { name: '可视化', icon: <BarChart3 size={16} />, color: '#FFB7C5', position: [0.8, 0.3, -1.0] },
+  { name: 'AI', icon: <Bot size={16} />, color: '#FFD93D', position: [-0.5, 0.6, -1.1] },
 ];
 
-function WireframeSphere() {
+function GlassSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((_, delta) => {
@@ -34,11 +34,15 @@ function WireframeSphere() {
   return (
     <mesh ref={meshRef}>
       <icosahedronGeometry args={[1.5, 2]} />
-      <meshBasicMaterial
-        color="#00F0FF"
-        wireframe
+      <meshPhysicalMaterial
+        color="#A8E6CF"
         transparent
         opacity={0.15}
+        transmission={0.6}
+        roughness={0.2}
+        metalness={0.1}
+        thickness={1.5}
+        side={THREE.DoubleSide}
       />
     </mesh>
   );
@@ -96,16 +100,16 @@ function SkillNodes({
             style={{
               pointerEvents: 'none',
               transition: 'all 0.3s',
-              opacity: hovered === skill.name ? 1 : 0.5,
-              transform: `scale(${hovered === skill.name ? 1.2 : 1})`,
+              opacity: hovered === skill.name ? 1 : 0.6,
+              transform: `scale(${hovered === skill.name ? 1.3 : 1})`,
             }}
           >
             <div
               className="flex items-center justify-center w-8 h-8 rounded-full"
               style={{
-                background: `${skill.color}20`,
-                border: `1px solid ${skill.color}60`,
-                boxShadow: `0 0 15px ${skill.color}40`,
+                background: `${skill.color}25`,
+                border: `1px solid ${skill.color}70`,
+                boxShadow: `0 0 15px ${skill.color}35`,
                 color: skill.color,
               }}
             >
@@ -146,7 +150,7 @@ function ConnectingLines() {
 
   return (
     <lineSegments ref={linesRef} geometry={geometry}>
-      <lineBasicMaterial color="#00F0FF" transparent opacity={0.08} />
+      <lineBasicMaterial color="#A8E6CF" transparent opacity={0.12} />
     </lineSegments>
   );
 }
@@ -157,15 +161,15 @@ function FallbackPlanet() {
       <div className="relative">
         {/* CSS fallback - rotating rings */}
         <div
-          className="w-64 h-64 rounded-full border border-[#00F0FF]/20 animate-spin-slow"
+          className="w-64 h-64 rounded-full border border-[#A8E6CF]/25 animate-spin-slow"
           style={{ animationDuration: '20s' }}
         />
         <div
-          className="absolute inset-4 rounded-full border border-[#B829F7]/20"
+          className="absolute inset-4 rounded-full border border-[#7EC8E3]/20"
           style={{ animation: 'spin-slow 15s linear infinite reverse' }}
         />
         <div
-          className="absolute inset-8 rounded-full border border-[#FF0080]/15"
+          className="absolute inset-8 rounded-full border border-[#FFB7C5]/18"
           style={{ animation: 'spin-slow 10s linear infinite' }}
         />
         {/* Skill dots */}
@@ -180,8 +184,8 @@ function FallbackPlanet() {
               style={{
                 left: `calc(50% + ${x}px - 20px)`,
                 top: `calc(50% + ${y}px - 20px)`,
-                background: `${skill.color}15`,
-                border: `1px solid ${skill.color}40`,
+                background: `${skill.color}20`,
+                border: `1px solid ${skill.color}50`,
                 boxShadow: `0 0 15px ${skill.color}30`,
                 color: skill.color,
               }}
@@ -191,7 +195,7 @@ function FallbackPlanet() {
           );
         })}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-4xl font-bold text-gradient-cyber">技能</span>
+          <span className="text-4xl font-bold text-gradient-spring">技能</span>
         </div>
       </div>
     </div>
@@ -218,7 +222,7 @@ export default function SkillPlanet() {
         gl={{ alpha: true, antialias: true }}
       >
         <ambientLight intensity={0.5} />
-        <WireframeSphere />
+        <GlassSphere />
         <ConnectingLines />
         <SkillNodes onHover={setHoveredSkill} />
         <OrbitControls
@@ -232,15 +236,16 @@ export default function SkillPlanet() {
       {/* Hover tooltip */}
       {hoveredSkill && (
         <div
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-lg text-center pointer-events-none"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl text-center pointer-events-none"
           style={{
-            background: 'rgba(10, 10, 18, 0.9)',
+            background: 'rgba(255, 255, 255, 0.9)',
             border: `1px solid ${hoveredSkill.color}50`,
-            boxShadow: `0 0 20px ${hoveredSkill.color}30`,
+            boxShadow: `0 4px 20px ${hoveredSkill.color}25`,
+            backdropFilter: 'blur(10px)',
           }}
         >
           <span className="mr-2" style={{ color: hoveredSkill.color }}>{hoveredSkill.icon}</span>
-          <span className="font-semibold" style={{ color: hoveredSkill.color }}>
+          <span className="font-semibold" style={{ color: '#2D3A3A' }}>
             {hoveredSkill.name}
           </span>
         </div>

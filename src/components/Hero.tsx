@@ -1,31 +1,20 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
-import { Atom, Palette, Hand } from 'lucide-react';
-import ParticleField from './3d/ParticleField';
-import NeonButton from './ui/NeonButton';
+import { useState, useRef } from 'react';
+import { Atom, Palette, Hand, Flower2, Leaf } from 'lucide-react';
+import BubbleField from './3d/BubbleField';
+import SoftButton from './ui/SoftButton';
 
 export default function Hero() {
-  const [glitchActive, setGlitchActive] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setGlitchActive(false), 600);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * 0.02;
-      const y = (e.clientY - rect.top - rect.height / 2) * 0.02;
-      setMousePos({ x, y });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) * 0.015;
+    const y = (e.clientY - rect.top - rect.height / 2) * 0.015;
+    setMousePos({ x, y });
+  };
 
   return (
     <section
@@ -33,12 +22,12 @@ export default function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden section-padding pt-32"
     >
-      {/* Particle Background */}
-      <ParticleField />
+      {/* Bubble Background */}
+      <BubbleField />
 
       {/* Gradient overlay for depth */}
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }}>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050508]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F7F9F4]" />
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
@@ -55,7 +44,7 @@ export default function Hero() {
         >
           {/* Halo Ring 3 - outermost */}
           <div
-            className="absolute halo-ring halo-ring-3"
+            className="absolute"
             style={{
               width: 220,
               height: 220,
@@ -63,12 +52,14 @@ export default function Hero() {
               left: '50%',
               marginLeft: -110,
               marginTop: -110,
-              transform: `rotateX(60deg) rotateZ(${Date.now() * 0.005}deg)`,
+              transform: 'rotateX(60deg)',
             }}
-          />
+          >
+            <div className="w-full h-full halo-ring halo-ring-3" />
+          </div>
           {/* Halo Ring 2 */}
           <div
-            className="absolute halo-ring halo-ring-2"
+            className="absolute"
             style={{
               width: 190,
               height: 190,
@@ -76,12 +67,14 @@ export default function Hero() {
               left: '50%',
               marginLeft: -95,
               marginTop: -95,
-              transform: `rotateX(45deg) rotateZ(${-Date.now() * 0.008}deg)`,
+              transform: 'rotateX(45deg)',
             }}
-          />
+          >
+            <div className="w-full h-full halo-ring halo-ring-2" />
+          </div>
           {/* Halo Ring 1 - innermost */}
           <div
-            className="absolute halo-ring halo-ring-1"
+            className="absolute"
             style={{
               width: 160,
               height: 160,
@@ -89,20 +82,40 @@ export default function Hero() {
               left: '50%',
               marginLeft: -80,
               marginTop: -80,
-              transform: `rotateX(30deg) rotateZ(${Date.now() * 0.012}deg)`,
+              transform: 'rotateX(30deg)',
             }}
-          />
+          >
+            <div className="w-full h-full halo-ring halo-ring-1" />
+          </div>
+
+          {/* Petal decorations */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            className="absolute -top-3 -right-3"
+            style={{ color: 'rgba(168, 230, 207, 0.5)' }}
+          >
+            <Leaf size={18} />
+          </motion.div>
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+            className="absolute -bottom-2 -left-2"
+            style={{ color: 'rgba(255, 183, 197, 0.5)' }}
+          >
+            <Flower2 size={16} />
+          </motion.div>
 
           {/* Avatar */}
           <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden animate-float">
             <div
               className="absolute inset-0 rounded-full"
               style={{
-                background: 'linear-gradient(135deg, #00F0FF, #B829F7, #FF0080)',
+                background: 'linear-gradient(135deg, #8BC48A, #7EC8E3, #FFB7C5)',
                 padding: 3,
               }}
             >
-              <div className="w-full h-full rounded-full overflow-hidden bg-[#0A0A12]">
+              <div className="w-full h-full rounded-full overflow-hidden bg-[#FFFFFF]">
                 <img
                   src="/images/avatar.png"
                   alt="Anini's avatar"
@@ -118,10 +131,10 @@ export default function Hero() {
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             className="absolute -top-2 -right-4 w-12 h-12 rounded-xl flex items-center justify-center"
             style={{
-              background: 'rgba(0, 240, 255, 0.1)',
-              border: '1px solid rgba(0, 240, 255, 0.3)',
-              boxShadow: '0 0 15px rgba(0, 240, 255, 0.2)',
-              color: '#00F0FF',
+              background: 'rgba(168, 230, 207, 0.2)',
+              border: '1px solid rgba(168, 230, 207, 0.4)',
+              boxShadow: '0 0 15px rgba(168, 230, 207, 0.15)',
+              color: '#5A6B6B',
             }}
           >
             <Atom size={20} />
@@ -131,10 +144,10 @@ export default function Hero() {
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
             className="absolute -bottom-1 -left-5 w-10 h-10 rounded-lg flex items-center justify-center"
             style={{
-              background: 'rgba(184, 41, 247, 0.1)',
-              border: '1px solid rgba(184, 41, 247, 0.3)',
-              boxShadow: '0 0 15px rgba(184, 41, 247, 0.2)',
-              color: '#B829F7',
+              background: 'rgba(255, 183, 197, 0.2)',
+              border: '1px solid rgba(255, 183, 197, 0.4)',
+              boxShadow: '0 0 15px rgba(255, 183, 197, 0.15)',
+              color: '#5A6B6B',
             }}
           >
             <Palette size={18} />
@@ -145,16 +158,16 @@ export default function Hero() {
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.8, ease: 'easeOut' }}
           className="mb-3"
         >
           <span
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium backdrop-blur-sm border"
             style={{
-              background: 'rgba(0, 240, 255, 0.08)',
-              borderColor: 'rgba(0, 240, 255, 0.2)',
-              color: '#00F0FF',
-              boxShadow: '0 0 20px rgba(0, 240, 255, 0.1)',
+              background: 'rgba(168, 230, 207, 0.15)',
+              borderColor: 'rgba(168, 230, 207, 0.35)',
+              color: '#5A6B6B',
+              boxShadow: '0 0 20px rgba(168, 230, 207, 0.1)',
             }}
           >
             <span className="animate-wave inline-block"><Hand size={16} /></span>
@@ -162,17 +175,14 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* Name with Glitch */}
+        {/* Name */}
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="text-5xl md:text-7xl font-extrabold mb-5"
+          transition={{ delay: 0.7, duration: 0.8, ease: 'easeOut' }}
+          className="text-5xl md:text-7xl font-bold mb-5"
         >
-          <span
-            className={`glitch-text text-gradient-cyber ${glitchActive ? 'active' : ''}`}
-            data-text="我是 Anini"
-          >
+          <span className="text-gradient-spring">
             我是 Anini
           </span>
         </motion.h1>
@@ -181,11 +191,11 @@ export default function Hero() {
         <motion.p
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.9 }}
+          transition={{ delay: 0.9, duration: 0.8, ease: 'easeOut' }}
           className="text-lg md:text-xl mb-10 leading-relaxed max-w-lg"
-          style={{ color: '#8A8A9A' }}
+          style={{ color: '#5A6B6B' }}
         >
-          <span className="font-semibold" style={{ color: '#00F0FF' }}>
+          <span className="font-semibold" style={{ color: '#8BC48A' }}>
             前端工程师
           </span>{' '}
           · 掘金 2024 人气作者
@@ -197,13 +207,13 @@ export default function Hero() {
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.1 }}
+          transition={{ delay: 1.1, duration: 0.8, ease: 'easeOut' }}
           className="flex flex-wrap items-center justify-center gap-4"
         >
-          <NeonButton href="#projects">查看作品</NeonButton>
-          <NeonButton href="#contact" variant="outline">
+          <SoftButton href="#projects">查看作品</SoftButton>
+          <SoftButton href="#contact" variant="outline">
             联系我
-          </NeonButton>
+          </SoftButton>
         </motion.div>
       </div>
 
@@ -217,14 +227,14 @@ export default function Hero() {
         <div
           className="w-6 h-10 rounded-full flex items-start justify-center p-1.5"
           style={{
-            border: '2px solid rgba(0, 240, 255, 0.3)',
+            border: '2px solid rgba(168, 230, 207, 0.5)',
           }}
         >
           <motion.div
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
             className="w-1.5 h-1.5 rounded-full"
-            style={{ background: 'rgba(0, 240, 255, 0.6)' }}
+            style={{ background: 'rgba(139, 196, 138, 0.6)' }}
           />
         </div>
       </motion.div>

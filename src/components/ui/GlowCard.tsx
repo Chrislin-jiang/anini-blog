@@ -5,25 +5,25 @@ interface GlowCardProps {
   children: ReactNode;
   className?: string;
   delay?: number;
-  glowColor?: 'cyan' | 'purple' | 'pink';
+  glowColor?: 'mint' | 'sky' | 'petal';
 }
 
 export default function GlowCard({
   children,
   className = '',
   delay = 0,
-  glowColor = 'cyan',
+  glowColor = 'mint',
 }: GlowCardProps) {
   const glowColors = {
-    cyan: 'rgba(0, 240, 255, 0.12)',
-    purple: 'rgba(184, 41, 247, 0.12)',
-    pink: 'rgba(255, 0, 128, 0.12)',
+    mint: 'rgba(168, 230, 207, 0.2)',
+    sky: 'rgba(126, 200, 227, 0.2)',
+    petal: 'rgba(255, 183, 197, 0.2)',
   };
 
   const borderColors = {
-    cyan: 'rgba(0, 240, 255, 0.25)',
-    purple: 'rgba(184, 41, 247, 0.25)',
-    pink: 'rgba(255, 0, 128, 0.25)',
+    mint: 'rgba(168, 230, 207, 0.5)',
+    sky: 'rgba(126, 200, 227, 0.5)',
+    petal: 'rgba(255, 183, 197, 0.5)',
   };
 
   return (
@@ -38,12 +38,12 @@ export default function GlowCard({
       }}
       className={`${className}`}
       style={{
-        background: 'rgba(10, 10, 18, 0.7)',
+        background: 'rgba(255, 255, 255, 0.75)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         border: `1px solid ${borderColors[glowColor]}`,
-        borderRadius: 16,
-        boxShadow: `0 0 20px ${glowColors[glowColor]}, inset 0 0 20px ${glowColors[glowColor]}`,
+        borderRadius: 20,
+        boxShadow: `0 4px 20px ${glowColors[glowColor]}, 0 1px 4px rgba(0,0,0,0.04)`,
         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >

@@ -28,11 +28,11 @@ const resultMap: Record<Choice, Choice> = {
 };
 
 const contactLinks = [
-  { label: 'GitHub', icon: <Code2 size={24} />, href: 'https://github.com/Chrislin-jiang', color: '#00F0FF' },
-  { label: '古早站点', icon: <Globe size={24} />, href: 'https://chrislin-jiang.github.io/code-girl/', color: '#B829F7' },
-  { label: '掘金', icon: <BookOpen size={24} />, href: 'https://juejin.cn/user/1908407919207006', color: '#FF0080' },
-  { label: '博客园', icon: <FileText size={24} />, href: 'https://www.cnblogs.com/chrislinlin/', color: '#00F0FF' },
-  { label: 'Gitee', icon: <GitBranch size={24} />, href: 'https://gitee.com/chrislinlin', color: '#B829F7' },
+  { label: 'GitHub', icon: <Code2 size={24} />, href: 'https://github.com/Chrislin-jiang', color: '#7EC8E3' },
+  { label: '古早站点', icon: <Globe size={24} />, href: 'https://chrislin-jiang.github.io/code-girl/', color: '#C9B1FF' },
+  { label: '掘金', icon: <BookOpen size={24} />, href: 'https://juejin.cn/user/1908407919207006', color: '#FFB7C5' },
+  { label: '博客园', icon: <FileText size={24} />, href: 'https://www.cnblogs.com/chrislinlin/', color: '#8BC48A' },
+  { label: 'Gitee', icon: <GitBranch size={24} />, href: 'https://gitee.com/chrislinlin', color: '#FFD93D' },
 ];
 
 const resultText = {
@@ -103,7 +103,7 @@ export default function Contact() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse at 50% 70%, rgba(0, 240, 255, 0.05) 0%, transparent 60%)',
+            'radial-gradient(ellipse at 50% 70%, rgba(168, 230, 207, 0.08) 0%, transparent 60%)',
         }}
       />
 
@@ -118,14 +118,14 @@ export default function Contact() {
           <span
             className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
             style={{
-              background: 'rgba(255, 0, 128, 0.1)',
-              color: '#FF0080',
-              border: '1px solid rgba(255, 0, 128, 0.2)',
+              background: 'rgba(255, 183, 197, 0.2)',
+              color: '#5A6B6B',
+              border: '1px solid rgba(255, 183, 197, 0.35)',
             }}
           >
             联系我
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#F0F0F5]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2D3A3A]">
             找到我
           </h2>
         </motion.div>
@@ -214,14 +214,14 @@ export default function Contact() {
                   style={{
                     background:
                       playerChoice === c.id
-                        ? 'linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(184, 41, 247, 0.2))'
-                        : 'rgba(255, 255, 255, 0.03)',
+                        ? 'linear-gradient(135deg, rgba(168, 230, 207, 0.25), rgba(255, 183, 197, 0.2))'
+                        : 'rgba(255, 255, 255, 0.6)',
                     border: `2px solid ${
-                      playerChoice === c.id ? '#00F0FF' : 'rgba(255,255,255,0.1)'
+                      playerChoice === c.id ? '#A8E6CF' : 'rgba(168,230,207,0.3)'
                     }`,
                     boxShadow:
                       playerChoice === c.id
-                        ? '0 0 20px rgba(0, 240, 255, 0.3)'
+                        ? '0 4px 20px rgba(168, 230, 207, 0.3)'
                         : 'none',
                   }}
                 >
@@ -236,7 +236,7 @@ export default function Contact() {
             {/* Result */}
             <div className="h-12 flex flex-col items-center justify-center">
               {isPlaying && (
-                <div className="text-lg animate-pulse" style={{ color: '#00F0FF' }}>
+                <div className="text-lg animate-pulse" style={{ color: '#7EC8E3' }}>
                   系统思考中...
                 </div>
               )}
@@ -254,10 +254,10 @@ export default function Contact() {
                     style={{
                       color:
                         result === 'win'
-                          ? '#00F0FF'
+                          ? '#8BC48A'
                           : result === 'lose'
-                          ? '#FF0080'
-                          : '#FFE600',
+                          ? '#FFB7C5'
+                          : '#FFD93D',
                     }}
                   >
                     {resultIcons[result]}
@@ -275,8 +275,8 @@ export default function Contact() {
                     key={n}
                     className="w-3 h-3 rounded-full transition-all duration-500"
                     style={{
-                      background: wins >= n ? '#00F0FF' : 'rgba(255,255,255,0.1)',
-                      boxShadow: wins >= n ? '0 0 10px rgba(0, 240, 255, 0.5)' : 'none',
+                      background: wins >= n ? '#A8E6CF' : 'rgba(168,230,207,0.2)',
+                      boxShadow: wins >= n ? '0 0 10px rgba(168, 230, 207, 0.4)' : 'none',
                     }}
                   />
                 ))}
@@ -287,13 +287,13 @@ export default function Contact() {
                   animate={{ opacity: 1, y: 0 }}
                   className="p-4 rounded-xl text-center"
                   style={{
-                    background: 'rgba(0, 240, 255, 0.05)',
-                    border: '1px solid rgba(0, 240, 255, 0.2)',
+                    background: 'rgba(168, 230, 207, 0.1)',
+                    border: '1px solid rgba(168, 230, 207, 0.3)',
                   }}
                 >
                   <pre
                     className="text-xs mb-2"
-                    style={{ color: '#00F0FF', lineHeight: 1.4 }}
+                    style={{ color: '#8BC48A', lineHeight: 1.4 }}
                   >
                     {`
   ╔═══════════════════════════╗
@@ -301,7 +301,7 @@ export default function Contact() {
   ╚═══════════════════════════╝
                     `}
                   </pre>
-                  <p className="text-sm font-medium flex items-center justify-center gap-1" style={{ color: '#00F0FF' }}>
+                  <p className="text-sm font-medium flex items-center justify-center gap-1" style={{ color: '#8BC48A' }}>
                     <Sparkles size={14} />
                     "路阻且长，行则将至。"
                   </p>

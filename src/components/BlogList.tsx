@@ -13,12 +13,12 @@ export default function BlogList() {
   const tilt = useTransform(scrollYProgress, [0, 0.5, 1], [8, 0, -8]);
 
   const categoryColors: Record<string, string> = {
-    面试: '#FF0080',
-    CSS: '#00F0FF',
-    React: '#B829F7',
-    技术: '#00F0FF',
-    设计: '#B829F7',
-    随笔: '#FF0080',
+    面试: '#FFB7C5',
+    CSS: '#7EC8E3',
+    React: '#8BC48A',
+    技术: '#7EC8E3',
+    设计: '#C9B1FF',
+    随笔: '#FFD93D',
   };
 
   return (
@@ -34,14 +34,14 @@ export default function BlogList() {
           <span
             className="inline-block px-4 py-1.5 rounded-full text-sm font-medium mb-4"
             style={{
-              background: 'rgba(255, 234, 0, 0.1)',
-              color: '#FFE600',
-              border: '1px solid rgba(255, 234, 0, 0.2)',
+              background: 'rgba(255, 217, 61, 0.12)',
+              color: '#5A6B6B',
+              border: '1px solid rgba(255, 217, 61, 0.3)',
             }}
           >
             博客
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#F0F0F5]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2D3A3A]">
             最近的想法
           </h2>
         </motion.div>
@@ -101,13 +101,13 @@ export default function BlogList() {
                   </div>
                   <h3
                     className="font-semibold group-hover:transition-colors mb-1 truncate"
-                    style={{ color: '#F0F0F5' }}
+                    style={{ color: '#2D3A3A' }}
                   >
-                    <span className="group-hover:text-[#00F0FF] transition-colors">
+                    <span className="group-hover:text-[#7EC8E3] transition-colors">
                       {post.title}
                     </span>
                   </h3>
-                  <p className="text-sm line-clamp-1" style={{ color: '#8A8A9A' }}>
+                  <p className="text-sm line-clamp-1" style={{ color: '#5A6B6B' }}>
                     {post.summary}
                   </p>
                 </div>
@@ -116,11 +116,11 @@ export default function BlogList() {
                 <div
                   className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1"
                   style={{
-                    background: 'rgba(0, 240, 255, 0.1)',
-                    border: '1px solid rgba(0, 240, 255, 0.2)',
+                    background: 'rgba(168, 230, 207, 0.2)',
+                    border: '1px solid rgba(168, 230, 207, 0.4)',
                   }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00F0FF" strokeWidth="2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8BC48A" strokeWidth="2">
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
                 </div>
