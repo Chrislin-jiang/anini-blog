@@ -49,16 +49,17 @@ function ParticleSphere() {
   const pointsRef = useRef<THREE.Points>(null);
 
   const { positions, colors, sizes } = useMemo(() => {
-    const count = 600;
+    const count = 800;
     const pos = new Float32Array(count * 3);
     const col = new Float32Array(count * 3);
     const siz = new Float32Array(count);
 
     const baseColors = [
-      new THREE.Color('#8CC63F'),
-      new THREE.Color('#5BA3D9'),
-      new THREE.Color('#B8D4E3'),
-      new THREE.Color('#F4D03F'),
+      new THREE.Color('#5A9E3F'),
+      new THREE.Color('#3D8B5E'),
+      new THREE.Color('#4A90C4'),
+      new THREE.Color('#D4A017'),
+      new THREE.Color('#6DB33F'),
     ];
 
     for (let i = 0; i < count; i++) {
@@ -78,7 +79,7 @@ function ParticleSphere() {
       col[i * 3 + 1] = color.g;
       col[i * 3 + 2] = color.b;
 
-      siz[i] = 1.5 + Math.random() * 2;
+      siz[i] = 2.5 + Math.random() * 3;
     }
 
     return { positions: pos, colors: col, sizes: siz };
@@ -101,39 +102,67 @@ function ParticleSphere() {
   return (
     <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial
-        size={0.03}
+        size={0.06}
         vertexColors
         transparent
-        opacity={0.6}
+        opacity={0.85}
         sizeAttenuation
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
       />
     </points>
   );
 }
 
-// Inner wireframe sphere for depth
+// Inner wireframe sphere for depth + nebula glow core
 function WireframeSphere() {
   const meshRef = useRef<THREE.Mesh>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.08;
       meshRef.current.rotation.x += delta * 0.02;
     }
+    if (glowRef.current) {
+      glowRef.current.rotation.y += delta * 0.05;
+      // Gentle breathing scale
+      const breathe = 1 + Math.sin(state.clock.elapsedTime * 0.6) * 0.03;
+      glowRef.current.scale.setScalar(breathe);
+    }
   });
 
   return (
-    <mesh ref={meshRef}>
-      <icosahedronGeometry args={[SPHERE_RADIUS * 0.85, 1]} />
-      <meshBasicMaterial
-        color="#8CC63F"
-        wireframe
-        transparent
-        opacity={0.06}
-      />
-    </mesh>
+    <>
+      {/* Nebula glow core - soft inner sphere */}
+      <mesh ref={glowRef}>
+        <sphereGeometry args={[SPHERE_RADIUS * 0.7, 32, 32]} />
+        <meshBasicMaterial
+          color="#6DB33F"
+          transparent
+          opacity={0.08}
+          side={THREE.BackSide}
+        />
+      </mesh>
+      {/* Second glow layer */}
+      <mesh>
+        <sphereGeometry args={[SPHERE_RADIUS * 0.5, 32, 32]} />
+        <meshBasicMaterial
+          color="#5BA3D9"
+          transparent
+          opacity={0.06}
+        />
+      </mesh>
+      {/* Wireframe */}
+      <mesh ref={meshRef}>
+        <icosahedronGeometry args={[SPHERE_RADIUS * 0.85, 2]} />
+        <meshBasicMaterial
+          color="#5A9E3F"
+          wireframe
+          transparent
+          opacity={0.18}
+        />
+      </mesh>
+    </>
   );
 }
 
@@ -150,14 +179,14 @@ function ConnectionLines() {
       return new THREE.Vector3(x, y, z);
     });
 
-    // Connect each node to its 2 nearest neighbors
+    // Connect each node to its 3 nearest neighbors for denser network
     for (let i = 0; i < nodePositions.length; i++) {
       const distances = nodePositions
         .map((p, j) => ({ dist: nodePositions[i].distanceTo(p), index: j }))
         .filter((d) => d.index !== i)
         .sort((a, b) => a.dist - b.dist);
 
-      for (let k = 0; k < Math.min(2, distances.length); k++) {
+      for (let k = 0; k < Math.min(3, distances.length); k++) {
         const j = distances[k].index;
         if (j > i) {
           lines.push({
@@ -184,7 +213,8 @@ function ConnectionLines() {
       const material = new THREE.LineBasicMaterial({
         color: ld.color,
         transparent: true,
-        opacity: 0.2,
+        opacity: 0.45,
+        linewidth: 1,
       });
       return new THREE.Line(geometry, material);
     });
@@ -234,11 +264,11 @@ function SkillNodes({
           <group key={skill.name} position={[pos.x, pos.y, pos.z]}>
             {/* Glowing dot at node position */}
             <mesh>
-              <sphereGeometry args={[isHovered ? 0.1 : 0.06, 16, 16]} />
+              <sphereGeometry args={[isHovered ? 0.12 : 0.08, 16, 16]} />
               <meshBasicMaterial
                 color={skill.color}
                 transparent
-                opacity={isHovered ? 1 : 0.8}
+                opacity={isHovered ? 1 : 0.9}
               />
             </mesh>
 
@@ -322,10 +352,10 @@ function AmbientParticles() {
   const pointsRef = useRef<THREE.Points>(null);
 
   const positions = useMemo(() => {
-    const count = 80;
+    const count = 150;
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const r = SPHERE_RADIUS * (1.5 + Math.random() * 1.5);
+      const r = SPHERE_RADIUS * (1.3 + Math.random() * 1.2);
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI;
       pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
@@ -356,13 +386,12 @@ function AmbientParticles() {
   return (
     <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial
-        size={0.02}
-        color="#8CC63F"
+        size={0.04}
+        color="#5A9E3F"
         transparent
-        opacity={0.35}
+        opacity={0.6}
         sizeAttenuation
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
       />
     </points>
   );
